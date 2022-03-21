@@ -1,17 +1,29 @@
 import React from 'react';
 import {TodoFragment} from './Fragment';
-import { Button } from 'react-bootstrap';
-import { Row } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPen, faPlus } from '@fortawesome/free-solid-svg-icons';
+
 
 export class BoardInProgress extends React.Component{
     render(){
         return(
             <div className="container">
-                <Row md={3}>
+                <Row>
+                <Col md="9">
                     <h3>In Progress</h3>
-                    <Button variant="primary">Add</Button>
-                    <FontAwesomeIcon icon="fas fa-trash-alt" />
+                </Col>                    
+                <Col md="1">
+                    <FontAwesomeIcon icon={faPen} />
+                </Col>                    
+                <Col md="2">
+                    <FontAwesomeIcon icon={faPlus} />
+                </Col>
+                    
+                    
+                    
                 </Row>
+                <hr/>
                 <TodoFragment/>
             </div>
         )

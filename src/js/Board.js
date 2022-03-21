@@ -10,6 +10,7 @@ export class Board extends React.Component{
         return(
             <div className="container">
                 <h1>Project Board</h1>
+                <hr/>
                 <Row md={4}>
                     <BoardTODO/>
                     <BoardInProgress/>

@@ -1,11 +1,28 @@
 import React from 'react';
 import {TodoFragment} from './Fragment';
+import { Row, Col } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPen, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 export class BoardTODO extends React.Component{
     render(){
         return(
             <div className="container">
-                <h3>TODO</h3>
+                <Row>
+                <Col md="9">
+                    <h3>TODO</h3>
+                </Col>                    
+                <Col md="1">
+                    <FontAwesomeIcon icon={faPen} />
+                </Col>                    
+                <Col md="2">
+                    <FontAwesomeIcon icon={faPlus} />
+                </Col>
+                    
+                    
+                    
+                </Row>
+                <hr/>
                 <TodoFragment/>
             </div>
         )
