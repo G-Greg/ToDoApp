@@ -5,10 +5,10 @@ import {BoardNoteTable} from './BoardNoteTable';
 export class Board extends React.Component{
     render(){
         return(
-            <div className="container">
+            <div className="board">
                 <h1>Project Board</h1>
                 <hr/>
-                <Row md={4}>
+                <Row md={5}>
                     <BoardNoteTable name="TODO"/>
                     <BoardNoteTable name="In Progress"/>
                     <BoardNoteTable name="Done"/>

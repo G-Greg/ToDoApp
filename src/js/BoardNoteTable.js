@@ -4,29 +4,36 @@ import { Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faPlus } from '@fortawesome/free-solid-svg-icons';
 
-const notes = [];
+
 
 export class BoardNoteTable extends React.Component{
-    listNotes(){
-        return notes.map((note) => console.log(234));
-    }
     
+    state = {
+        notes: []
+    }
+  
     newNote = () => {
-        notes.push(<Note key={notes.length}/>)
-        console.log(notes)
-        return notes
+        this.setState({
+            notes : [...this.state.notes, <Note key={this.state.notes.length}/>]
+        })
+        console.log(this.state.notes)
     }
 
     editName = () => {
         console.log(this.props.name)
+        this.props.name = 'asd'
     }
     
     render(){
         return(
-            <div className="container">
+            <div className="noteTable">
                 <Row>
-                    <Col md="9">
-                        <h3>{this.props.name}</h3>
+                    <Col md="8">
+                        <h4>{this.props.name}</h4>
+                    </Col> 
+
+                    <Col md="1">
+                        <h4>{this.state.notes.length}</h4>
                     </Col> 
 
                     <Col md="1">
@@ -43,7 +50,7 @@ export class BoardNoteTable extends React.Component{
                 </Row>
                 <hr/>
                 <div className='NoteList'>
-                    {notes}
+                    {this.state.notes}
                 </div>
             </div>
         )

@@ -1,6 +1,18 @@
 body{
-  background-color: #c3c5c9;
+  background-color: #e4e4e4;
+  /*#c3c5c9;*/
 }
+
+.board{
+  margin: 2%;
+}
+
+.noteTable{
+  /*background-color: #d4d4d4;*/
+  border-radius: 0.25rem;
+  margin: 10px 10px;
+}
+
 
 .App {
   text-align: center;
