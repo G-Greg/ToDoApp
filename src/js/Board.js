@@ -1,9 +1,6 @@
 import React from 'react';
 import { Row } from 'react-bootstrap';
-import {BoardTODO} from './BoardTODO.js';
-import {BoardInProgress} from './BoardInProgress';
-import {BoardDone} from './BoardDone';
-import {BoardBlocked} from './BoardBlocked';
+import {BoardNoteTable} from './BoardNoteTable';
 
 export class Board extends React.Component{
     render(){
@@ -12,10 +9,10 @@ export class Board extends React.Component{
                 <h1>Project Board</h1>
                 <hr/>
                 <Row md={4}>
-                    <BoardTODO/>
-                    <BoardInProgress/>
-                    <BoardDone/>
-                    <BoardBlocked/>
+                    <BoardNoteTable name="TODO"/>
+                    <BoardNoteTable name="In Progress"/>
+                    <BoardNoteTable name="Done"/>
+                    <BoardNoteTable name="Blocked"/>
                 </Row>
             </div>
         )

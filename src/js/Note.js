@@ -5,7 +5,7 @@ import { Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 
-export class TodoFragment extends React.Component{
+export class Note extends React.Component{
     render(){
         return( 
             <Row>
