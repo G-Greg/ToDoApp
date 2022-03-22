@@ -9,7 +9,8 @@ import { faPen, faPlus } from '@fortawesome/free-solid-svg-icons';
 export class BoardNoteTable extends React.Component{
     
     state = {
-        notes: []
+        notes: [],
+        name: this.props.name
     }
   
     newNote = () => {
@@ -20,16 +21,21 @@ export class BoardNoteTable extends React.Component{
     }
 
     editName = () => {
-        console.log(this.props.name)
-        this.props.name = 'asd'
+        this.setState({
+            name: 'asd'
+        })
     }
+
+    /*search = () => {
+        notes: this.state.notes.map(note => ((note.key === 0)? ({...notes, key: 21}) : ({...notes}) ))
+    }*/
     
     render(){
         return(
             <div className="noteTable">
                 <Row>
                     <Col md="8">
-                        <h4>{this.props.name}</h4>
+                        <h4>{this.state.name}</h4>
                     </Col> 
 
                     <Col md="1">
