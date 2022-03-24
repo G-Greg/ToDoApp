@@ -3,6 +3,7 @@ import {Note} from './Note';
 import { Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { PopupModal } from './PopupModal';
 
 
 
@@ -10,9 +11,17 @@ export class BoardNoteTable extends React.Component{
     
     state = {
         notes: [],
-        name: this.props.name
+        name: this.props.name,
+        display: false
     }
   
+    editName = (bool) => {
+         this.setState({
+            display: bool
+        })
+    }
+
+
     newNote = () => {
         this.setState({
             notes : [...this.state.notes, <Note key={this.state.notes.length}/>]
@@ -20,11 +29,12 @@ export class BoardNoteTable extends React.Component{
         console.log(this.state.notes)
     }
 
-    editName = () => {
+    /*eeditName = () => {
+        var title = prompt('Name:')
         this.setState({
-            name: 'asd'
+            name: title
         })
-    }
+    }*/
 
     /*search = () => {
         notes: this.state.notes.map(note => ((note.key === 0)? ({...notes, key: 21}) : ({...notes}) ))
@@ -33,6 +43,7 @@ export class BoardNoteTable extends React.Component{
     render(){
         return(
             <div className="noteTable">
+                 { this.state.display ? <PopupModal /> : null }
                 <Row>
                     <Col md="8">
                         <h4>{this.state.name}</h4>
@@ -43,7 +54,7 @@ export class BoardNoteTable extends React.Component{
                     </Col> 
 
                     <Col md="1">
-                        <a onClick={this.editName}>
+                        <a onClick={() => this.editName(!this.state.display)}>
                         <FontAwesomeIcon icon={faPen} />
                         </a>
                     </Col>

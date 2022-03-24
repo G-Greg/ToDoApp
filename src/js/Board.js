@@ -1,8 +1,12 @@
 import React from 'react';
 import { Row } from 'react-bootstrap';
 import {BoardNoteTable} from './BoardNoteTable';
+import { PopupModal } from './PopupModal';
+
 
 export class Board extends React.Component{
+
+
     render(){
         return(
             <div className="board">
@@ -12,7 +16,7 @@ export class Board extends React.Component{
                     <BoardNoteTable name="TODO"/>
                     <BoardNoteTable name="In Progress"/>
                     <BoardNoteTable name="Done"/>
-                    <BoardNoteTable name="Blocked"/>
+                    <BoardNoteTable name="Blocked"/>                    
                 </Row>
             </div>
         )
