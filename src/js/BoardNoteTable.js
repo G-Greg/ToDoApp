@@ -1,9 +1,9 @@
 import React from 'react';
 import {Note} from './Note';
-import { Row, Col } from 'react-bootstrap';
+import { NameModal} from './NameModal'
+import { Row, Col} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faPlus } from '@fortawesome/free-solid-svg-icons';
-import { PopupModal } from './PopupModal';
 
 
 
@@ -43,7 +43,7 @@ export class BoardNoteTable extends React.Component{
     render(){
         return(
             <div className="noteTable">
-                 { this.state.display ? <PopupModal /> : null }
+                 { this.state.display ? <NameModal /> : null }
                 <Row>
                     <Col md="8">
                         <h4>{this.state.name}</h4>

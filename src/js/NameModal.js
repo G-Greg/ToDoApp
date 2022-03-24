@@ -1,4 +1,9 @@
-function Example() {
+import React from 'react';
+import {Button, Modal} from 'react-bootstrap';
+import { render, useState} from "react";
+
+
+export function NameModal() {
     const [show, setShow] = useState(false);
   
     const handleClose = () => setShow(false);
@@ -27,5 +32,6 @@ function Example() {
       </>
     );
   }
+
+
   
-  render(<Example />);
