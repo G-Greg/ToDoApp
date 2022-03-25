@@ -5,8 +5,6 @@ import { Row, Col} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faPlus } from '@fortawesome/free-solid-svg-icons';
 
-
-
 export class BoardNoteTable extends React.Component{
     
     state = {
@@ -16,6 +14,7 @@ export class BoardNoteTable extends React.Component{
     }
   
     editName = (bool) => {
+        console.log(bool)
          this.setState({
             display: bool
         })
@@ -29,21 +28,15 @@ export class BoardNoteTable extends React.Component{
         console.log(this.state.notes)
     }
 
-    /*eeditName = () => {
-        var title = prompt('Name:')
-        this.setState({
-            name: title
-        })
-    }*/
-
     /*search = () => {
         notes: this.state.notes.map(note => ((note.key === 0)? ({...notes, key: 21}) : ({...notes}) ))
     }*/
     
+
     render(){
         return(
             <div className="noteTable">
-                 { this.state.display ? <NameModal /> : null }
+                 { this.state.display ? <NameModal/> : null }
                 <Row>
                     <Col md="8">
                         <h4>{this.state.name}</h4>
