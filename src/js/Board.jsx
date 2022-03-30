@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row } from 'react-bootstrap';
-import {BoardNoteTable} from './BoardNoteTable';
+import BoardNoteTable from './BoardNoteTable';
 
 
 export class Board extends React.Component{
@@ -10,7 +10,14 @@ export class Board extends React.Component{
             allNotes: {
                 toDoBoard: {
                     title: "ToDo",
-                    notes: []
+                    notes: [
+                        {
+                            priority: 1,
+                            cardTitle: "CardTitle",
+                            desc: "This is the description",
+                            date: "2022.10.10"
+                        }
+                    ]
                 },
                 inProgressBoard: {
                     title: "In Progress",
@@ -29,6 +36,10 @@ export class Board extends React.Component{
     }
 
 
+    newNoteClickTesting = (e) =>{
+        console.log(e)
+    }
+
     componentDidMount(){
         fetch('https://jsonplaceholder.typicode.com/users')
         .then(response => response.json())
@@ -41,10 +52,10 @@ export class Board extends React.Component{
                 <h1>Project Board</h1>
                 <hr/>
                 <Row md={5}>
-                    <BoardNoteTable name={this.state.allNotes.toDoBoard.title} tNotes={this.state.allNotes.toDoBoard.notes}/>
-                    <BoardNoteTable name={this.state.allNotes.inProgressBoard.title} iPNotes={this.state.allNotes.inProgressBoard.notes}/>
-                    <BoardNoteTable name={this.state.allNotes.doneBoard.title} dNotes={this.state.allNotes.doneBoard.notes}/>
-                    <BoardNoteTable name={this.state.allNotes.blockedBoard.title} bNotes={this.state.allNotes.blockedBoard.notes}/>                    
+                    <BoardNoteTable name={this.state.allNotes.toDoBoard.title} notes={this.state.allNotes.toDoBoard.notes}/>
+                    <BoardNoteTable name={this.state.allNotes.inProgressBoard.title} notes={this.state.allNotes.inProgressBoard.notes}/>
+                    <BoardNoteTable name={this.state.allNotes.doneBoard.title} notes={this.state.allNotes.doneBoard.notes}/>
+                    <BoardNoteTable name={this.state.allNotes.blockedBoard.title} notes={this.state.allNotes.blockedBoard.notes}/>                    
                 </Row>
             </div>
         )

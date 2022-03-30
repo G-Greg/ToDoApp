@@ -6,8 +6,7 @@ import { Card } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 
-export class Note extends React.Component{
-    render(){
+const Note = ({priority, title, desc, date}) => {
         return(
         <Card style={{marginBottom: '3%'}}>
             <Card.Body>
@@ -18,9 +17,9 @@ export class Note extends React.Component{
                     </div>
                     </Col>
                     <Col md="11">
-                        <Card.Title>ToDo Title</Card.Title>
-                        <Card.Text>This is the description</Card.Text>
-                        <Card.Subtitle>2022.10.10</Card.Subtitle>
+                        <Card.Title>{title}</Card.Title>
+                        <Card.Text>{desc}</Card.Text>
+                        <Card.Subtitle>{date}</Card.Subtitle>
                     <Row className="mx-0">
                         <Button as={Col} variant="primary">Button #1</Button>
                         <Button as={Col} variant="secondary" className="mx-2">Button #2</Button>
@@ -30,5 +29,7 @@ export class Note extends React.Component{
                 </Row>
             </Card.Body>
         </Card>
-    )}
+    )
 }
+
+export default Note;
