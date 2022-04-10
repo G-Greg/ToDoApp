@@ -1,7 +1,6 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
 /.pnp
 .pnp.js
 
@@ -21,3 +20,13 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+#my
+/ToDoReactWithBackend/.vs
+/ToDoReactWithBackend/.vscode
+/ToDoReactWithBackend/ToDoReactWithBackend.sln
+/ToDoReactWithBackend/react-frontend/.vscode
+/ToDoReactWithBackend/react-frontend/README.md
+/ToDoReactWithBackend/react-frontend/nuget.config
+/ToDoReactWithBackend/react-frontend/React-Frontend.esproj
+/ToDoReactWithBackend/react-frontend/node_modules
