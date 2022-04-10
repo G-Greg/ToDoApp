@@ -4,16 +4,20 @@ import { NameModal} from './NameModal'
 import { Row, Col} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faPlus } from '@fortawesome/free-solid-svg-icons';
+//import { propTypes } from 'react-bootstrap/esm/Image';
 
-const BoardNoteTable = ({name, notes}) => {
-    
-    const state = {
-        old_notes: [],
-        name: name,
-        display: false
+export class BoardNoteTable extends React.Component{
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            notes: props.notes,
+            name: props.name,
+            display: false
+        }
     }
   
-    const editName = (bool) => {
+    editName = (bool) => {
         console.log(bool)
         this.setState({
             display: bool
@@ -21,11 +25,12 @@ const BoardNoteTable = ({name, notes}) => {
     }
 
 
-    const newNote = () => {
+
+    newNote = () => {
         this.setState({
-            old_notes : [...state.old_notes, <Note key={state.old_notes.length}/>]
+            notes : [...this.state.notes, <Note key={this.state.notes.length}/>]
         })
-        console.log(state.old_notes)
+        console.log(this.state.notes)
     }
 
     /*
@@ -34,34 +39,35 @@ const BoardNoteTable = ({name, notes}) => {
     }*/
     
     //console.log(this.state.notes, this.state.name, this.state.notes.length)
-    return(
+    render(){
+        return(
         <div className="noteTable">
-                { state.display ? <NameModal/> : null }
+                { this.state.display ? <NameModal/> : null }
             <Row>
                 <Col md="8">
-                    <h4>{state.name}</h4>
+                    <h4>{this.state.name}</h4>
                 </Col> 
 
                 <Col md="1">
-                    <h4>{state.old_notes.length}</h4>
+                    <h4>{this.state.notes.length}</h4>
                 </Col> 
 
                 <Col md="1">
-                    <a onClick={() => editName(!state.display)}>
+                    <i onClick={() => this.editName(!this.state.display)}>
                     <FontAwesomeIcon icon={faPen} />
-                    </a>
+                    </i>
                 </Col>
 
                 <Col md="2">
-                    <a onClick={() => newNote()}>
+                    <i onClick={() => this.newNote()}>
                         <FontAwesomeIcon icon={faPlus} />
-                    </a>
+                    </i>
                 </Col>
             </Row>
             <hr/>
             <div className='NoteList'>
                 {
-                notes.map((note, noteIndex) => {
+                this.state.notes.map((note, noteIndex) => {
                     return(
                     <Note 
                     key = {noteIndex} 
@@ -72,7 +78,13 @@ const BoardNoteTable = ({name, notes}) => {
                     />)})}
             </div>
         </div>
-    )
+    )}
 }
 
-export default BoardNoteTable;
+/*
+type check
+
+BoardNoteTable.propTypes = {
+    name: propTypes.string
+};
+*/

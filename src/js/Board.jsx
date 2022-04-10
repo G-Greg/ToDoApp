@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row } from 'react-bootstrap';
-import BoardNoteTable from './BoardNoteTable';
+import { BoardNoteTable } from './BoardNoteTable';
 
 
 export class Board extends React.Component{
