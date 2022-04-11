@@ -47,44 +47,6 @@ export class Board extends React.Component{
         })   
         this.forceUpdate()
 
-
-
-
-        /*
-        this.setState({
-            allNotes: {...this.state.allNotes, toDoBoard:{...this.state.allNotes.toDoBoard, title: "something"}}
-        })
-
-        this.setState((state, props) => {
-            console.log(state,props)
-            state.allNotes[Object.keys(state.allNotes)[columnIndex]].title = value
-        })     
-
-        this.setState(function(state) {
-            return { 
-            blockedBoard: Object.assign({}, 
-                state.allNotes.blockedBoard.title, {
-                title: value 
-            })
-            }
-        })
-
-        this.setState({
-            blockedBoard:{ title: 'jack'}
-        })
-
-        /*this.setState({
-            allNotes: {
-                  allNotes.map(),
-                  title: 'something'
-            }
-        })*/
-
-        /*this.setState({
-            title: {...this.state.allNotes.key(columnIndex).title, title:""}
-            //prevState.allNotes.map(table => ((table.columnIndex === 0)? {...table, title: "21"} : table ))
-        })*/
-        console.log(this.state)
     }
 
     newNoteClickTesting = (e) =>{
