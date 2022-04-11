@@ -7,8 +7,8 @@ export class Board extends React.Component{
     constructor() {
         super();
         this.state = {
-            allNotes: {
-                toDoBoard: {
+            allNotes: [
+                {
                     title: "ToDo",
                     notes: [
                         {
@@ -19,22 +19,73 @@ export class Board extends React.Component{
                         }
                     ]
                 },
-                inProgressBoard: {
+                {
                     title: "In Progress",
                     notes: []
                 },
-                doneBoard: {
+                {
                     title: "Done",
                     notes: []
                 },
-                blockedBoard: {
+                {
                     title: "Blocked",
                     notes: []
                 },
-            }
+            ]
         }
     }
 
+    handleTitleChange = (value, columnIndex) => {
+        console.log(value)
+
+
+
+        this.setState((state, props) => {
+            console.log(state, props)
+            console.log(columnIndex)
+            state.allNotes[columnIndex].title = value
+        })   
+        this.forceUpdate()
+
+
+
+
+        /*
+        this.setState({
+            allNotes: {...this.state.allNotes, toDoBoard:{...this.state.allNotes.toDoBoard, title: "something"}}
+        })
+
+        this.setState((state, props) => {
+            console.log(state,props)
+            state.allNotes[Object.keys(state.allNotes)[columnIndex]].title = value
+        })     
+
+        this.setState(function(state) {
+            return { 
+            blockedBoard: Object.assign({}, 
+                state.allNotes.blockedBoard.title, {
+                title: value 
+            })
+            }
+        })
+
+        this.setState({
+            blockedBoard:{ title: 'jack'}
+        })
+
+        /*this.setState({
+            allNotes: {
+                  allNotes.map(),
+                  title: 'something'
+            }
+        })*/
+
+        /*this.setState({
+            title: {...this.state.allNotes.key(columnIndex).title, title:""}
+            //prevState.allNotes.map(table => ((table.columnIndex === 0)? {...table, title: "21"} : table ))
+        })*/
+        console.log(this.state)
+    }
 
     newNoteClickTesting = (e) =>{
         console.log(e)
@@ -43,7 +94,7 @@ export class Board extends React.Component{
     componentDidMount(){
         fetch('https://jsonplaceholder.typicode.com/users')
         .then(response => response.json())
-        .then((users) => this.setState({notes: users}));
+        .then((users) => this.setState({fullnewuser: users}));
     }
 
     render(){
@@ -52,10 +103,11 @@ export class Board extends React.Component{
                 <h1>Project Board</h1>
                 <hr/>
                 <Row md={5}>
-                    <BoardNoteTable name={this.state.allNotes.toDoBoard.title} notes={this.state.allNotes.toDoBoard.notes}/>
-                    <BoardNoteTable name={this.state.allNotes.inProgressBoard.title} notes={this.state.allNotes.inProgressBoard.notes}/>
-                    <BoardNoteTable name={this.state.allNotes.doneBoard.title} notes={this.state.allNotes.doneBoard.notes}/>
-                    <BoardNoteTable name={this.state.allNotes.blockedBoard.title} notes={this.state.allNotes.blockedBoard.notes}/>                    
+                {
+                    this.state.allNotes.map((_, boardIndex) => 
+                        <BoardNoteTable key={boardIndex} nemkey={boardIndex} name={this.state.allNotes[boardIndex].title} notes={this.state.allNotes[boardIndex].notes} handleTitle={this.handleTitleChange} />         
+                    )
+                }
                 </Row>
             </div>
         )

@@ -12,7 +12,6 @@ export class BoardNoteTable extends React.Component{
 
         this.state = {
             notes: props.notes,
-            name: props.name,
             display: false
         }
     }
@@ -24,7 +23,6 @@ export class BoardNoteTable extends React.Component{
         })
     }
 
-//teszt
 
     newNote = () => {
         this.setState({
@@ -42,10 +40,10 @@ export class BoardNoteTable extends React.Component{
     render(){
         return(
         <div className="noteTable">
-                { this.state.display ? <NameModal/> : null }
+                { this.state.display ? <NameModal handleTitle={this.props.handleTitle} titleId={this.props.nemkey}/> : null }
             <Row>
                 <Col md="8">
-                    <h4>{this.state.name}</h4>
+                    <h4>{this.props.name}</h4>
                 </Col> 
 
                 <Col md="1">

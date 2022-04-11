@@ -3,13 +3,12 @@ import {Button, Modal, Form} from 'react-bootstrap';
 import {useState} from "react";
 
 
-export function NameModal() {
+export function NameModal({handleTitle, titleId}) {
 
-  const [title, setTitle] = useState("");
+
   const [show, setShow] = useState(true);
 
   const handleClose = () => {
-    console.log(title)
     setShow(false);
   }
   const handleShow = () => setShow(true);
@@ -23,7 +22,7 @@ export function NameModal() {
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3" controlId="titleName">
-              <Form.Control type="text" autoFocus onChange={e => setTitle(e.target.value)}/>
+              <Form.Control type="text" autoFocus onChange={e => handleTitle(e.target.value, titleId)}/>
             </Form.Group>
           </Form>
         </Modal.Body>
