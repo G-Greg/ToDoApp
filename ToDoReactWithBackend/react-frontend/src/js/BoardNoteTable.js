@@ -24,7 +24,7 @@ export class BoardNoteTable extends React.Component{
         })
     }
 
-
+//teszt
 
     newNote = () => {
         this.setState({
