@@ -1,6 +1,7 @@
 import React from 'react';
 import Note from './Note';
 import { NameModal} from './NameModal'
+import { NoteModal} from './NoteModal'
 import { Row, Col} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -12,35 +13,31 @@ export class BoardNoteTable extends React.Component{
 
         this.state = {
             notes: props.notes,
-            display: false
+            nameModalDisplay: false,
+            noteModalDisplay: false
         }
     }
   
-    editName = (bool) => {
+    nameModal = (bool) => {
         console.log(bool)
         this.setState({
-            display: bool
+            nameModalDisplay: bool
         })
     }
 
-
-    newNote = () => {
+    noteModal = (bool) => {
+        console.log(bool)
         this.setState({
-            notes : [...this.state.notes, <Note key={this.state.notes.length}/>]
+            noteModalDisplay: bool
         })
-        console.log(this.state.notes)
     }
 
-    /*
-    search = () => {
-        notes: this.state.notes.map(note => ((note.key === 0)? ({...notes, key: 21}) : ({...notes}) ))
-    }*/
-    
-    //console.log(this.state.notes, this.state.name, this.state.notes.length)
+
     render(){
         return(
         <div className="noteTable">
-                { this.state.display ? <NameModal handleTitle={this.props.handleTitle} titleId={this.props.nemkey}/> : null }
+                { this.state.nameModalDisplay ? <NameModal handleTitle={this.props.handleTitle} titleId={this.props.nemkey} /> : null }
+                { this.state.noteModalDisplay ? <NoteModal handleNote={this.props.handleNote} columnIndex={this.props.nemkey} /> : null }
             <Row>
                 <Col md="8">
                     <h4>{this.props.name}</h4>
@@ -51,13 +48,13 @@ export class BoardNoteTable extends React.Component{
                 </Col> 
 
                 <Col md="1">
-                    <i onClick={() => this.editName(!this.state.display)}>
+                    <i onClick={() => this.nameModal(!this.state.nameModalDisplay)}>
                     <FontAwesomeIcon icon={faPen} />
                     </i>
                 </Col>
 
                 <Col md="2">
-                    <i onClick={() => this.newNote()}>
+                    <i onClick={() => this.noteModal(!this.state.noteModalDisplay)}>
                         <FontAwesomeIcon icon={faPlus} />
                     </i>
                 </Col>
@@ -65,15 +62,16 @@ export class BoardNoteTable extends React.Component{
             <hr/>
             <div className='NoteList'>
                 {
-                this.state.notes.map((note, noteIndex) => {
-                    return(
-                    <Note 
-                    key = {noteIndex} 
-                    priority = {note.priority}
-                    title = {note.cardTitle}
-                    desc = {note.desc}
-                    date = {note.date}
-                    />)})}
+                    this.state.notes.map((note, noteIndex) => {
+                        return(
+                        <Note 
+                            key = {noteIndex} 
+                            priority = {note.priority}
+                            title = {note.cardTitle}
+                            desc = {note.desc}
+                            date = {note.date}
+                        />)})
+                        }
             </div>
         </div>
     )}

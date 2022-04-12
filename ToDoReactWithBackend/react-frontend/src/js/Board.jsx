@@ -36,21 +36,23 @@ export class Board extends React.Component{
     }
 
     handleTitleChange = (value, columnIndex) => {
-        console.log(value)
-
-
-
-        this.setState((state, props) => {
-            console.log(state, props)
-            console.log(columnIndex)
-            state.allNotes[columnIndex].title = value
+        this.setState({
+            ...this.state.allNotes[columnIndex].title = value
         })   
         this.forceUpdate()
-
     }
 
-    newNoteClickTesting = (e) =>{
-        console.log(e)
+    handleNewNote = (title, desc, date, columnIndex) => {
+        this.setState({
+            ...this.state.allNotes[columnIndex].notes.push(
+            {
+                priority: 1,
+                cardTitle: title,
+                desc: desc,
+                date: date
+            })
+        })   
+        this.forceUpdate()
     }
 
     componentDidMount(){
@@ -67,7 +69,7 @@ export class Board extends React.Component{
                 <Row md={5}>
                 {
                     this.state.allNotes.map((_, boardIndex) => 
-                        <BoardNoteTable key={boardIndex} nemkey={boardIndex} name={this.state.allNotes[boardIndex].title} notes={this.state.allNotes[boardIndex].notes} handleTitle={this.handleTitleChange} />         
+                        <BoardNoteTable key={boardIndex} nemkey={boardIndex} name={this.state.allNotes[boardIndex].title} notes={this.state.allNotes[boardIndex].notes} handleTitle={this.handleTitleChange} handleNote={this.handleNewNote}/>         
                     )
                 }
                 </Row>
