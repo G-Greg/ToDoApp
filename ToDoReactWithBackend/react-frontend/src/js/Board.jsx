@@ -44,8 +44,8 @@ export class Board extends React.Component{
     }
     
     handleTitleChange = (value, columnIndex) => {
-        this.setState({
-            ...this.state.allNotes[columnIndex].title = value
+        this.setState((state) => {
+            state.allNotes[columnIndex].title = value
         })   
         this.forceUpdate()
     }
@@ -66,10 +66,11 @@ export class Board extends React.Component{
     }
 
     handleDeleteNote = (id, columnIndex) => {
-        console.log(id, columnIndex)
-        delete this.state.allNotes[columnIndex][id]
+        const index = this.state.allNotes[columnIndex].notes.findIndex(note => note.id === id)
+        this.setState({
+            ...this.state.allNotes[columnIndex].notes.splice(index,1)
+        })
         this.forceUpdate()
-
     }
 
     componentDidMount(){
