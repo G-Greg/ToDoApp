@@ -13,14 +13,14 @@ export function NoteModal({handleNote, columnIndex}) {
   const handleShow = () => setShow(true);
 
 
-  const [priority, setPriority] = useState("");
+  const [priority, setPriority] = useState(0);
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("")
-  const [date, setDate] = useState("")
+  const [date, setDate] = useState()
 
   const collectData = () => {
     handleClose()
-    handleNote(priority, title, desc, date, columnIndex)
+    handleNote(priority, title, desc, date.replaceAll('-','.'), columnIndex)
   }
 
   return (
@@ -38,22 +38,22 @@ export function NoteModal({handleNote, columnIndex}) {
 
             <Form.Group className="mb-3" controlId="prio">
               <Form.Label>Priority</Form.Label>
-              <Form.Select aria-label="Default select example">
-                <option value="0">Three</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+              <Form.Select onChange={e => setPriority(e.target.selectedIndex)}>
+                <option value="0">Critical</option>
+                <option value="1">High</option>
+                <option value="2">Medium</option>
+                <option value="3">Low</option>
               </Form.Select>
             </Form.Group>
 
             <Form.Label>Description</Form.Label>
             <Form.Group className="mb-3" controlId="desc">
-              <Form.Control as="textarea" rows={3} onChange={e => setDesc(e.target.value)} placeholder="Description"/>
+              <Form.Control as="textarea" rows={3} onChange={e => setDesc(e.target.value)} placeholder="Description" required/>
             </Form.Group>
 
 
             <Form.Label>Date</Form.Label>
-            <Form.Group className="mb-3" controlId="desc">
+            <Form.Group className="mb-3" controlId="date">
               <Form.Control type="date" onChange={e => setDate(e.target.value)}/>
             </Form.Group>
 

@@ -42,11 +42,11 @@ export class Board extends React.Component{
         this.forceUpdate()
     }
 
-    handleNewNote = (title, desc, date, columnIndex) => {
+    handleNewNote = (priority, title, desc, date, columnIndex) => {
         this.setState({
             ...this.state.allNotes[columnIndex].notes.push(
             {
-                priority: 1,
+                priority: priority,
                 cardTitle: title,
                 desc: desc,
                 date: date

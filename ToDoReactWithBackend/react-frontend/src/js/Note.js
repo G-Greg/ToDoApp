@@ -4,7 +4,7 @@ import { Row } from 'react-bootstrap';
 import { Col } from 'react-bootstrap';
 import { Card } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
+import { faCalendar, faExclamationCircle, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 const Note = ({priority, title, desc, date}) => {
     const getColor = () => {
@@ -34,11 +34,11 @@ const Note = ({priority, title, desc, date}) => {
                     <Col md="11">
                         <Card.Title>{title}</Card.Title>
                         <Card.Text>{desc}</Card.Text>
-                        <Card.Subtitle>{date}</Card.Subtitle>
+                        <Card.Subtitle><FontAwesomeIcon icon={faCalendar} /> {date}</Card.Subtitle>
                     <Row className="mx-0">
-                        <Button as={Col} variant="primary">Button #1</Button>
+                        <Button as={Col} variant="primary"><FontAwesomeIcon icon={faArrowLeft}/></Button>
                         <Button as={Col} variant="secondary" className="mx-2">Button #2</Button>
-                        <Button as={Col} variant="success">Button #3</Button>
+                        <Button as={Col} variant="success">{'>'}</Button>
                     </Row>
                     </Col>
                 </Row>
