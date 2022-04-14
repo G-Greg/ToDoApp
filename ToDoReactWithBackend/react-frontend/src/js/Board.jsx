@@ -7,11 +7,13 @@ export class Board extends React.Component{
     constructor() {
         super();
         this.state = {
+            counter: 1,
             allNotes: [
                 {
                     title: "ToDo",
                     notes: [
                         {
+                            id: 0,
                             priority: 1,
                             cardTitle: "CardTitle",
                             desc: "This is the description",
@@ -34,7 +36,13 @@ export class Board extends React.Component{
             ]
         }
     }
-
+    
+    setCounter = () => {
+        this.setState({
+            counter: this.state.counter+1
+        })
+    }
+    
     handleTitleChange = (value, columnIndex) => {
         this.setState({
             ...this.state.allNotes[columnIndex].title = value
@@ -43,9 +51,11 @@ export class Board extends React.Component{
     }
 
     handleNewNote = (priority, title, desc, date, columnIndex) => {
+        this.setCounter()
         this.setState({
             ...this.state.allNotes[columnIndex].notes.push(
             {
+                id: this.state.counter,
                 priority: priority,
                 cardTitle: title,
                 desc: desc,
@@ -53,6 +63,13 @@ export class Board extends React.Component{
             })
         })   
         this.forceUpdate()
+    }
+
+    handleDeleteNote = (id, columnIndex) => {
+        console.log(id, columnIndex)
+        delete this.state.allNotes[columnIndex][id]
+        this.forceUpdate()
+
     }
 
     componentDidMount(){
@@ -69,7 +86,10 @@ export class Board extends React.Component{
                 <Row md={5}>
                 {
                     this.state.allNotes.map((_, boardIndex) => 
-                        <BoardNoteTable key={boardIndex} nemkey={boardIndex} name={this.state.allNotes[boardIndex].title} notes={this.state.allNotes[boardIndex].notes} handleTitle={this.handleTitleChange} handleNote={this.handleNewNote}/>         
+                        <BoardNoteTable key={boardIndex} nemkey={boardIndex} name={this.state.allNotes[boardIndex].title} notes={this.state.allNotes[boardIndex].notes} 
+                        handleTitle={this.handleTitleChange}
+                        handleNote={this.handleNewNote}
+                        handleDelete={this.handleDeleteNote}/>         
                     )
                 }
                 </Row>

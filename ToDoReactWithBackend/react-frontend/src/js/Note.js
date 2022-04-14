@@ -4,9 +4,9 @@ import { Row } from 'react-bootstrap';
 import { Col } from 'react-bootstrap';
 import { Card } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalendar, faExclamationCircle, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faCalendar, faExclamationCircle, faArrowLeft, faArrowRight, faTrash } from '@fortawesome/free-solid-svg-icons';
 
-const Note = ({priority, title, desc, date}) => {
+const Note = ({id, priority, title, desc, date, handleDelete, columnIndex}) => {
     const getColor = () => {
         if (priority === 0){
             return "red"
@@ -22,6 +22,11 @@ const Note = ({priority, title, desc, date}) => {
         }
     }
 
+    const prepareDelete = () => {
+        console.log(id, columnIndex)
+        handleDelete(id, columnIndex)
+    }
+
     return(
         <Card style={{marginBottom: '3%'}}>
             <Card.Body>
@@ -35,14 +40,14 @@ const Note = ({priority, title, desc, date}) => {
                         <Card.Title>{title}</Card.Title>
                         <Card.Text>{desc}</Card.Text>
                         <Card.Subtitle><FontAwesomeIcon icon={faCalendar} /> {date}</Card.Subtitle>
-                    <Row className="mx-0">
-                        <Button as={Col} variant="primary"><FontAwesomeIcon icon={faArrowLeft}/></Button>
-                        <Button as={Col} variant="secondary" className="mx-2">Button #2</Button>
-                        <Button as={Col} variant="success">{'>'}</Button>
-                    </Row>
+
                     </Col>
                 </Row>
             </Card.Body>
+        <Card.Footer className="text-center">
+            <Button as={Col} variant="primary"><FontAwesomeIcon icon={faArrowLeft}/></Button>
+            <Button as={Col} variant="secondary" className="mx-2" onClick={prepareDelete}><FontAwesomeIcon icon={faTrash}/></Button>
+            <Button as={Col} variant="success"><FontAwesomeIcon icon={faArrowRight}/></Button></Card.Footer>
         </Card>
     )
 }

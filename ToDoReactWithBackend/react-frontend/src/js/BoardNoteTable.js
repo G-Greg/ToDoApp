@@ -76,11 +76,14 @@ export class BoardNoteTable extends React.Component{
                     this.state.notes.map((note, noteIndex) => {
                         return(
                         <Note 
-                            key = {noteIndex} 
+                            key = {noteIndex}
+                            id = {note.id}
+                            columnIndex = {this.props.nemkey}
                             priority = {note.priority}
                             title = {note.cardTitle}
                             desc = {note.desc}
                             date = {note.date}
+                            handleDelete = {this.props.handleDelete}
                         />)})
                         }
             </div>
