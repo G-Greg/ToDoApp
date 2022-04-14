@@ -3,27 +3,22 @@ import {Button, Modal, Form} from 'react-bootstrap';
 import {useState} from "react";
 
 
-export function NameModal({handleTitle, titleId}) {
+export function NameModal({handleTitle, handleClose, titleId}) {
 
-
-  const [show, setShow] = useState(true);
-
-  const handleClose = () => {
-    setShow(false);
+  const Close = () => {
+    handleClose("Name", false)
   }
-  const handleShow = () => setShow(true);
-
 
   const [title, setTitle] = useState("");
 
   const collectData = () => {
-    handleClose()
+    Close()
     handleTitle(title, titleId)
   }
 
   return (
     <>
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={true} onHide={Close}>
         <Modal.Header closeButton>
           <Modal.Title>New name of the column</Modal.Title>
         </Modal.Header>
@@ -35,7 +30,7 @@ export function NameModal({handleTitle, titleId}) {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="secondary" onClick={Close}>
             Close
           </Button>
           <Button variant="primary" onClick={collectData}>

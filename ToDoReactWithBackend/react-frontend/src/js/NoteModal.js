@@ -3,15 +3,11 @@ import {Button, Modal, Form} from 'react-bootstrap';
 import {useState} from "react";
 
 
-export function NoteModal({handleNote, columnIndex}) {
+export function NoteModal({handleNote, handleClose, columnIndex}) {
 
-  const [show, setShow] = useState(true);
-
-  const handleClose = () => {
-    setShow(false);
+  const Close = () => {
+    handleClose("Note", false)
   }
-  const handleShow = () => setShow(true);
-
 
   const [priority, setPriority] = useState(0);
   const [title, setTitle] = useState("");
@@ -19,13 +15,13 @@ export function NoteModal({handleNote, columnIndex}) {
   const [date, setDate] = useState()
 
   const collectData = () => {
-    handleClose()
+    Close()
     handleNote(priority, title, desc, date.replaceAll('-','.'), columnIndex)
   }
 
   return (
     <>
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={true} onHide={Close}>
         <Modal.Header closeButton>
           <Modal.Title>Create a new note</Modal.Title>
         </Modal.Header>
@@ -60,7 +56,7 @@ export function NoteModal({handleNote, columnIndex}) {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="secondary" onClick={Close}>
             Close
           </Button>
           <Button variant="primary" onClick={collectData}>
