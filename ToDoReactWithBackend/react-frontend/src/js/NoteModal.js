@@ -5,6 +5,18 @@ import {useState} from "react";
 
 export function NoteModal({handleNote, handleClose, columnIndex}) {
 
+  const [validated, setValidated] = useState(false);
+
+  const handleSubmit = (event) => {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }    
+    setValidated(true);
+    event.currentTarget.checkValidity() ? collectData() : console.log("Submited")
+  };
+  
   const Close = () => {
     handleClose("Note", false)
   }
@@ -26,10 +38,10 @@ export function NoteModal({handleNote, handleClose, columnIndex}) {
           <Modal.Title>Create a new note</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form>
+          <Form noValidate validated={validated} onSubmit={handleSubmit}>
             <Form.Label>Title</Form.Label>
             <Form.Group className="mb-3" controlId="titleName">
-              <Form.Control type="text" autoFocus onChange={e => setTitle(e.target.value)} placeholder="Title"/>
+              <Form.Control type="text" autoFocus onChange={e => setTitle(e.target.value)} placeholder="Title" required/>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="prio">
@@ -50,19 +62,15 @@ export function NoteModal({handleNote, handleClose, columnIndex}) {
 
             <Form.Label>Date</Form.Label>
             <Form.Group className="mb-3" controlId="date">
-              <Form.Control type="date" onChange={e => setDate(e.target.value)}/>
+              <Form.Control type="date" onChange={e => setDate(e.target.value)} required/>
             </Form.Group>
 
+            <Modal.Footer>
+              <Button variant="secondary" onClick={Close}>Close</Button>
+              <Button type="submit" variant="primary">Add Note</Button>
+            </Modal.Footer>
           </Form>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={Close}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={collectData}>
-            Add Note
-          </Button>
-        </Modal.Footer>
       </Modal>
     </>
   );
