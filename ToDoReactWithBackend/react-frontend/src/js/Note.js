@@ -7,13 +7,28 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 
 const Note = ({priority, title, desc, date}) => {
-        return(
+    const getColor = () => {
+        if (priority === 0){
+            return "red"
+        }
+        else if (priority === 1){
+            return "darkorange"
+        }
+        else if (priority === 2){
+            return "dodgerblue" 
+        }
+        else if (priority === 3){
+            return "green"
+        }
+    }
+
+    return(
         <Card style={{marginBottom: '3%'}}>
             <Card.Body>
                 <Row>
-                    <Col md="1">        
-                    <div>
-                        <FontAwesomeIcon icon={faExclamationCircle} />
+                    <Col md="1">       
+                    <div style={{color: getColor()}}>
+                        <FontAwesomeIcon icon={faExclamationCircle}/>
                     </div>
                     </Col>
                     <Col md="11">

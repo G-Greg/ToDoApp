@@ -13,13 +13,14 @@ export function NoteModal({handleNote, columnIndex}) {
   const handleShow = () => setShow(true);
 
 
+  const [priority, setPriority] = useState("");
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("")
   const [date, setDate] = useState("")
 
   const collectData = () => {
     handleClose()
-    handleNote(title, desc, date, columnIndex)
+    handleNote(priority, title, desc, date, columnIndex)
   }
 
   return (
@@ -33,6 +34,16 @@ export function NoteModal({handleNote, columnIndex}) {
             <Form.Label>Title</Form.Label>
             <Form.Group className="mb-3" controlId="titleName">
               <Form.Control type="text" autoFocus onChange={e => setTitle(e.target.value)} placeholder="Title"/>
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="prio">
+              <Form.Label>Priority</Form.Label>
+              <Form.Select aria-label="Default select example">
+                <option value="0">Three</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+              </Form.Select>
             </Form.Group>
 
             <Form.Label>Description</Form.Label>

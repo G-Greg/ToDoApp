@@ -13,6 +13,14 @@ export function NameModal({handleTitle, titleId}) {
   }
   const handleShow = () => setShow(true);
 
+
+  const [title, setTitle] = useState("");
+
+  const collectData = () => {
+    handleClose()
+    handleTitle(title, titleId)
+  }
+
   return (
     <>
       <Modal show={show} onHide={handleClose}>
@@ -22,7 +30,7 @@ export function NameModal({handleTitle, titleId}) {
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3" controlId="titleName">
-              <Form.Control type="text" autoFocus onChange={e => handleTitle(e.target.value, titleId)}/>
+              <Form.Control type="text" autoFocus onChange={e => setTitle(e.target.value)}/>
             </Form.Group>
           </Form>
         </Modal.Body>
@@ -30,7 +38,7 @@ export function NameModal({handleTitle, titleId}) {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="primary" onClick={collectData}>
             Save Changes
           </Button>
         </Modal.Footer>
