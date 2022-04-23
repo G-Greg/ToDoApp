@@ -73,7 +73,8 @@ export class BoardNoteTable extends React.Component{
             <hr/>
             <div className='NoteList'>
                 {
-                    this.state.notes.map((note, noteIndex) => {
+                    this.state.notes.sort((a, b) => (a.priority > b.priority) ? 1 : -1)
+                    .map((note, noteIndex) => {
                         return(
                         <Note 
                             key = {noteIndex}
@@ -84,8 +85,9 @@ export class BoardNoteTable extends React.Component{
                             desc = {note.desc}
                             date = {note.date}
                             handleDelete = {this.props.handleDelete}
-                        />)})
-                        }
+                        />)
+                    })
+                }
             </div>
         </div>
     )}
