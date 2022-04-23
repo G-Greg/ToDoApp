@@ -73,6 +73,15 @@ export class Board extends React.Component{
         this.forceUpdate()
     }
 
+    handleMoveNote = (id, columnIndex, toMove) => {
+
+        const found = this.state.allNotes[columnIndex].notes.find(n => n.id === id);
+
+        this.handleDeleteNote(id, columnIndex)
+        this.handleNewNote(found.priority, found.cardTitle, found.desc, found.date, toMove === "toRight" ? columnIndex + 1 : columnIndex - 1)
+        this.forceUpdate()
+    }
+    
     componentDidMount(){
         fetch('https://jsonplaceholder.typicode.com/users')
         .then(response => response.json())
@@ -90,7 +99,8 @@ export class Board extends React.Component{
                         <BoardNoteTable key={boardIndex} nemkey={boardIndex} name={this.state.allNotes[boardIndex].title} notes={this.state.allNotes[boardIndex].notes} 
                         handleTitle={this.handleTitleChange}
                         handleNote={this.handleNewNote}
-                        handleDelete={this.handleDeleteNote}/>         
+                        handleDelete={this.handleDeleteNote}
+                        handleMove={this.handleMoveNote}/>         
                     )
                 }
                 </Row>

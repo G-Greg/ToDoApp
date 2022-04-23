@@ -85,6 +85,7 @@ export class BoardNoteTable extends React.Component{
                             desc = {note.desc}
                             date = {note.date}
                             handleDelete = {this.props.handleDelete}
+                            handleMove = {this.props.handleMove}
                         />)
                     })
                 }

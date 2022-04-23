@@ -6,7 +6,7 @@ import { Card } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar, faExclamationCircle, faArrowLeft, faArrowRight, faTrash } from '@fortawesome/free-solid-svg-icons';
 
-const Note = ({id, priority, title, desc, date, handleDelete, columnIndex}) => {
+const Note = ({id, priority, title, desc, date, handleDelete, columnIndex, handleMove}) => {
     const getColor = () => {
         if (priority === 0){
             return "red"
@@ -23,8 +23,15 @@ const Note = ({id, priority, title, desc, date, handleDelete, columnIndex}) => {
     }
 
     const prepareDelete = () => {
-        console.log(id, columnIndex)
         handleDelete(id, columnIndex)
+    }
+
+    const moveRight = () => {
+        handleMove(id, columnIndex, "toRight")
+    }
+
+    const moveLeft = () => {
+        handleMove(id, columnIndex, "toLeft")
     }
 
     return(
@@ -45,9 +52,10 @@ const Note = ({id, priority, title, desc, date, handleDelete, columnIndex}) => {
                 </Row>
             </Card.Body>
         <Card.Footer className="text-center">
-            <Button as={Col} variant="primary"><FontAwesomeIcon icon={faArrowLeft}/></Button>
-            <Button as={Col} variant="secondary" className="mx-2" onClick={prepareDelete}><FontAwesomeIcon icon={faTrash}/></Button>
-            <Button as={Col} variant="success"><FontAwesomeIcon icon={faArrowRight}/></Button></Card.Footer>
+            {columnIndex > 0 ? <Button as={Col} variant="success" onClick={moveLeft}><FontAwesomeIcon icon={faArrowLeft}/></Button> : null}
+            <Button as={Col} variant="danger" className="mx-2" onClick={prepareDelete}><FontAwesomeIcon icon={faTrash}/></Button>
+            {columnIndex < 3 ? <Button as={Col} variant="success" onClick={moveRight}><FontAwesomeIcon icon={faArrowRight}/></Button> : null}
+        </Card.Footer>
         </Card>
     )
 }
