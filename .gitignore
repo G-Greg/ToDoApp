@@ -28,5 +28,14 @@ yarn-error.log*
 /ToDoReactWithBackend/react-frontend/.vscode
 /ToDoReactWithBackend/react-frontend/README.md
 /ToDoReactWithBackend/react-frontend/nuget.config
-/ToDoReactWithBackend/react-frontend/React-Frontend.esproj
+/ToDoReactWithBackend/react-frontend/react-frontend.esproj
 /ToDoReactWithBackend/react-frontend/node_modules
+
+
+/ToDoReactWithBackend/react-frontend/package-lock.json
+/ToDoReactWithBackend/react-frontend/src/test
+
+/ToDoReactWithBackend/react-backend/bin
+/ToDoReactWithBackend/react-backend/obj
+/ToDoReactWithBackend/react-backend/Properties
+

@@ -1,10 +1,8 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
-import { Row } from 'react-bootstrap';
-import { Col } from 'react-bootstrap';
-import { Card } from 'react-bootstrap';
+import { Button, Row, Col, Card} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar, faExclamationCircle, faArrowLeft, faArrowRight, faTrash } from '@fortawesome/free-solid-svg-icons';
+
 
 const Note = ({id, priority, title, desc, date, handleDelete, columnIndex, handleMove}) => {
     const getColor = () => {
