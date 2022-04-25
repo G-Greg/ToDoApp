@@ -11,5 +11,9 @@ namespace react_backend.Models
         }
 
         public DbSet<TodoItem> TodoItems { get; set; } = null!;
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder) {
+            modelBuilder.Entity<TodoItem>().ToTable("Todo");
+        }
     }
 }

@@ -1,6 +1,8 @@
 import React from 'react';
 import { Row } from 'react-bootstrap';
 import { BoardNoteTable } from './BoardNoteTable';
+import { axios } from 'axios';
+
 
 
 export class Board extends React.Component{
@@ -62,6 +64,13 @@ export class Board extends React.Component{
                 date: date
             })
         })   
+
+        /*fetch({
+            method: 'post',
+            url: "api/todoitems",
+            data: { id: this.state.counter, priority: priority, cardtitle: title, description: desc, date: date }
+        }).catch(error => console.error('Unable to update item', error.response.data));*/
+
         this.forceUpdate()
     }
 

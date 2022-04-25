@@ -12,7 +12,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 */
 builder.Services.AddDbContext<TodoContext>(opt =>
-    opt.UseInMemoryDatabase("TodoList"));
+    opt.UseSqlServer(builder.Configuration.GetConnectionString("TodoContext")));
 
 var app = builder.Build();
 
@@ -24,7 +24,13 @@ if (app.Environment.IsDevelopment())
     //app.UseSwaggerUI();
 }
 
-app.UseDefaultFiles();
+using (var scope = app.Services.CreateScope()) 
+{
+    var services = scope.ServiceProvider;
+    SeedData.Initialize(services);
+}
+
+    app.UseDefaultFiles();
 app.UseStaticFiles();
 
 app.UseHttpsRedirection();
