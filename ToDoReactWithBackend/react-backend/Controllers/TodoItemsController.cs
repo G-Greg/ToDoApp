@@ -10,7 +10,7 @@ using react_backend.Models;
 
 namespace react_backend.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/todoitems")]
     [ApiController]
     public class TodoItemsController : ControllerBase
     {
