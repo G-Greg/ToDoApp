@@ -97,10 +97,18 @@ export class Board extends React.Component{
         this.forceUpdate()
     }
     
-    componentDidMount(){
+    componentDidMount() {
+        axios.get('api/todoitems')
+            .then(res => {
+                const item = res.data;
+                console.log(item);
+            });
+        
+
+        /*
         fetch('https://jsonplaceholder.typicode.com/users')
         .then(response => response.json())
-        .then((users) => this.setState({fullnewuser: users}));
+        .then((users) => this.setState({fullnewuser: users}));*/
     }
 
     render(){
