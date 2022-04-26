@@ -20,10 +20,11 @@ namespace react_backend.Models
                     new TodoItem
                     {
                         Id = 1,
-                        Title = "First title",
+                        ColumnIndex = 0,
+                        Title = "The new note",
                         Priority = 1,
-                        Description = "First Description",
-                        Date = "2020.00.00",
+                        Description = "This note from the database",
+                        Date = "2020.01.01.",
                     });
                 context.SaveChanges();
             }

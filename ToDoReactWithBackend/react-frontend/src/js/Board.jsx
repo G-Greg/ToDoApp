@@ -4,7 +4,6 @@ import { BoardNoteTable } from './BoardNoteTable';
 import axios from 'axios';
 
 
-
 export class Board extends React.Component{
     constructor() {
         super();
@@ -13,15 +12,7 @@ export class Board extends React.Component{
             allNotes: [
                 {
                     title: "ToDo",
-                    notes: [
-                        {
-                            id: 0,
-                            priority: 1,
-                            cardTitle: "CardTitle",
-                            desc: "This is the description",
-                            date: "2022.10.10"
-                        }
-                    ]
+                    notes: []
                 },
                 {
                     title: "In Progress",
@@ -38,7 +29,7 @@ export class Board extends React.Component{
             ]
         }
     }
-    
+
     setCounter = () => {
         this.setState({
             counter: this.state.counter+1
@@ -70,6 +61,7 @@ export class Board extends React.Component{
             url: 'https://localhost:7207/api/todoitems',
             data: {
                 id: this.state.counter,
+                columnindex: columnIndex,
                 priority: priority,
                 cardtitle: title,
                 description: desc, 
@@ -97,18 +89,30 @@ export class Board extends React.Component{
         this.forceUpdate()
     }
     
-    componentDidMount() {
-        axios.get('api/todoitems')
-            .then(res => {
-                const item = res.data;
-                console.log(item);
-            });
-        
+    componentDidMount() {        
+        axios.get('api/todoitems').then(res => {
+            if (res.status === 200) {
+                this.loadData(res.data);
+            }
+        });
+    }
 
-        /*
-        fetch('https://jsonplaceholder.typicode.com/users')
-        .then(response => response.json())
-        .then((users) => this.setState({fullnewuser: users}));*/
+    loadData(data) {
+        if (this.state.allNotes.some(arr => arr.notes.length != 0)) return
+
+        data.map((note) =>
+            this.setState({
+                ...this.state.allNotes[note.columnIndex].notes.push(
+                {
+                    id: note.id,
+                    columnindex: note.columnIndex,
+                    priority: note.priority,
+                    cardTitle: note.title,
+                    desc: note.description,
+                    date: note.date
+                })
+            })
+        )
     }
 
     render(){
