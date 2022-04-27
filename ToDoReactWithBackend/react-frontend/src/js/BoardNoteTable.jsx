@@ -5,6 +5,7 @@ import { NoteModal} from './NoteModal'
 import { Row, Col} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faPlus } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
 //import { propTypes } from 'react-bootstrap/esm/Image';
 
 export class BoardNoteTable extends React.Component{
@@ -14,7 +15,8 @@ export class BoardNoteTable extends React.Component{
         this.state = {
             notes: props.notes,
             nameModalDisplay: false,
-            noteModalDisplay: false
+            noteModalDisplay: false,
+            data: null
         }
     }
   
@@ -43,12 +45,25 @@ export class BoardNoteTable extends React.Component{
         }
     }
 
+    handleOnClick = (id) => {
+        axios.get(`api/todoitems/${id}`).then(res => {
+            if (res.status === 200) {
+                this.setState({
+                    data: res.data
+                })
+            }
+        });
+        this.setState({
+            noteModalDisplay: true
+        })
+    }
+
 
     render(){
         return(
         <div className="noteTable">
                 { this.state.nameModalDisplay ? <NameModal handleTitle={this.props.handleTitle} titleId={this.props.nemkey} handleClose={this.handleModalClose}/> : null }
-                { this.state.noteModalDisplay ? <NoteModal handleNote={this.props.handleNote} columnIndex={this.props.nemkey} handleClose={this.handleModalClose}/> : null }
+                { this.state.noteModalDisplay ? <NoteModal loadData={this.state.data} handleNote={this.props.handleNote} columnIndex={this.props.nemkey} handleClose={this.handleModalClose}/> : null }
             <Row>
                 <Col md="8">
                     <h4>{this.props.name}</h4>
@@ -86,6 +101,7 @@ export class BoardNoteTable extends React.Component{
                             date = {note.date}
                             handleDelete = {this.props.handleDelete}
                             handleMove = {this.props.handleMove}
+                            handleClick = {this.handleOnClick}
                         />)
                     })
                 }

@@ -1,9 +1,9 @@
 import React from 'react';
 import {Button, Modal, Form} from 'react-bootstrap';
-import {useState} from "react";
+import {useState, useEffect} from "react";
 
 
-export function NoteModal({handleNote, handleClose, columnIndex}) {
+export function NoteModal({handleNote, handleClose, columnIndex, loadData}) {
 
   const [validated, setValidated] = useState(false);
 
@@ -14,7 +14,7 @@ export function NoteModal({handleNote, handleClose, columnIndex}) {
       event.stopPropagation();
     }    
     setValidated(true);
-    event.currentTarget.checkValidity() ? collectData() : console.log("Submited")
+    event.currentTarget.checkValidity() ? collectData() : console.log("Not ubmited")
   };
   
   const Close = () => {
@@ -31,6 +31,15 @@ export function NoteModal({handleNote, handleClose, columnIndex}) {
     handleNote(priority, title, desc, date.replaceAll('-','.'), columnIndex)
   }
 
+  useEffect(() => {
+      if (loadData) {
+        setPriority(loadData.priority)
+        setTitle(loadData.title)
+        setDesc(loadData.description)
+        setDate(loadData.date)
+    }
+  });
+
   return (
     <>
       <Modal show={true} onHide={Close}>
@@ -41,12 +50,12 @@ export function NoteModal({handleNote, handleClose, columnIndex}) {
           <Form noValidate validated={validated} onSubmit={handleSubmit}>
             <Form.Label>Title</Form.Label>
             <Form.Group className="mb-3" controlId="titleName">
-              <Form.Control type="text" autoFocus onChange={e => setTitle(e.target.value)} placeholder="Title"  value="asd" required/>
+              <Form.Control type="text" autoFocus onChange={e => setTitle(e.target.value)} placeholder="Title" value={loadData ? loadData.title : ""} required/>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="prio">
               <Form.Label>Priority</Form.Label>
-              <Form.Select onChange={e => setPriority(e.target.selectedIndex)}>
+                <Form.Select onChange={e => setPriority(e.target.selectedIndex)} value={loadData ? loadData.priority : 0}>
                 <option value="0">Critical</option>
                 <option value="1">High</option>
                 <option value="2">Medium</option>
@@ -56,13 +65,13 @@ export function NoteModal({handleNote, handleClose, columnIndex}) {
 
             <Form.Label>Description</Form.Label>
             <Form.Group className="mb-3" controlId="desc">
-                <Form.Control as="textarea" rows={3} onChange={e => setDesc(e.target.value)} placeholder="Description" value="asd" required/>
+              <Form.Control as="textarea" rows={3} onChange={e => setDesc(e.target.value)} placeholder="Description" value={loadData ? loadData.description : ""} required/>
             </Form.Group>
 
 
             <Form.Label>Date</Form.Label>
             <Form.Group className="mb-3" controlId="date">
-              <Form.Control type="date" onChange={e => setDate(e.target.value)} required/>
+              <Form.Control type="date" onChange={e => setDate(e.target.value)} value={loadData ? loadData.date.replaceAll('.', '-').slice(0, -1) : ""} required/>
             </Form.Group>
 
             <Modal.Footer>

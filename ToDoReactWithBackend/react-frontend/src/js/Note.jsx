@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar, faExclamationCircle, faArrowLeft, faArrowRight, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 
-const Note = ({id, priority, title, desc, date, handleDelete, columnIndex, handleMove}) => {
+const Note = ({id, priority, title, desc, date, handleDelete, columnIndex, handleMove, handleClick}) => {
     const getColor = () => {
         if (priority === 0){
             return "red"
@@ -32,8 +32,11 @@ const Note = ({id, priority, title, desc, date, handleDelete, columnIndex, handl
         handleMove(id, columnIndex, "toLeft")
     }
 
+    const click = () => {
+        handleClick(id)
+    }
     return(
-        <Card style={{marginBottom: '3%'}}>
+        <Card style={{marginBottom: '3%'}} onClick={click}>
             <Card.Body>
                 <Row>
                     <Col md="1">       
