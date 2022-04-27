@@ -41,7 +41,7 @@ export function NoteModal({handleNote, handleClose, columnIndex}) {
           <Form noValidate validated={validated} onSubmit={handleSubmit}>
             <Form.Label>Title</Form.Label>
             <Form.Group className="mb-3" controlId="titleName">
-              <Form.Control type="text" autoFocus onChange={e => setTitle(e.target.value)} placeholder="Title" required/>
+              <Form.Control type="text" autoFocus onChange={e => setTitle(e.target.value)} placeholder="Title"  value="asd" required/>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="prio">
@@ -56,7 +56,7 @@ export function NoteModal({handleNote, handleClose, columnIndex}) {
 
             <Form.Label>Description</Form.Label>
             <Form.Group className="mb-3" controlId="desc">
-              <Form.Control as="textarea" rows={3} onChange={e => setDesc(e.target.value)} placeholder="Description" required/>
+                <Form.Control as="textarea" rows={3} onChange={e => setDesc(e.target.value)} placeholder="Description" value="asd" required/>
             </Form.Group>
 
 

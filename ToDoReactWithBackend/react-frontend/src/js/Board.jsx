@@ -8,7 +8,7 @@ export class Board extends React.Component{
     constructor() {
         super();
         this.state = {
-            counter: 1,
+            counter: 0,
             allNotes: [
                 {
                     title: "ToDo",
@@ -67,7 +67,7 @@ export class Board extends React.Component{
                 description: desc, 
                 date: date
             }
-        }).catch(error => console.error('Unable to update item', error.response.data));
+        }).catch(error => console.error('Unable to update item', error));
 
         this.forceUpdate()
     }
@@ -77,6 +77,9 @@ export class Board extends React.Component{
         this.setState({
             ...this.state.allNotes[columnIndex].notes.splice(index,1)
         })
+
+        axios.delete(`api/todoitems/${id}`)
+
         this.forceUpdate()
     }
 
@@ -86,10 +89,13 @@ export class Board extends React.Component{
 
         this.handleDeleteNote(id, columnIndex)
         this.handleNewNote(found.priority, found.cardTitle, found.desc, found.date, toMove === "toRight" ? columnIndex + 1 : columnIndex - 1)
+
+        axios.put(`api/todoitems/${id}`, found)
+
         this.forceUpdate()
     }
     
-    componentDidMount() {        
+    componentDidMount() {
         axios.get('api/todoitems').then(res => {
             if (res.status === 200) {
                 this.loadData(res.data);
