@@ -8,7 +8,6 @@ export class Board extends React.Component{
     constructor() {
         super();
         this.state = {
-            counter: 0,
             allNotes: [
                 {
                     title: "ToDo",
@@ -29,12 +28,6 @@ export class Board extends React.Component{
             ]
         }
     }
-
-    setCounter = () => {
-        this.setState({
-            counter: this.state.counter+1
-        })
-    }
     
     handleTitleChange = (value, columnIndex) => {
         this.setState((state) => {
@@ -44,11 +37,9 @@ export class Board extends React.Component{
     }
 
     handleNewNote = (priority, title, desc, date, columnIndex) => {
-        this.setCounter()
         this.setState({
             ...this.state.allNotes[columnIndex].notes.push(
             {
-                id: this.state.counter,
                 priority: priority,
                 cardTitle: title,
                 desc: desc,
@@ -57,7 +48,6 @@ export class Board extends React.Component{
         })
 
         var item = {
-            id: 111,
             columnindex: columnIndex,
             priority: priority,
             title: title,
@@ -86,8 +76,13 @@ export class Board extends React.Component{
 
         const found = this.state.allNotes[columnIndex].notes.find(n => n.id === id);
 
-        this.handleDeleteNote(id, columnIndex)
-        this.handleNewNote(found.priority, found.cardTitle, found.desc, found.date, toMove === "toRight" ? columnIndex + 1 : columnIndex - 1)
+        this.setState({
+            ...this.state.allNotes[columnIndex].notes.find(n => n.id === id).columnindex = toMove === "toRight" ? columnIndex + 1 : columnIndex - 1
+        });
+
+        console.log(found)
+        //this.handleDeleteNote(id, columnIndex)
+        //this.handleNewNote(found.priority, found.cardTitle, found.desc, found.date, toMove === "toRight" ? columnIndex + 1 : columnIndex - 1)
 
         axios.put(`api/todoitems/${id}`, found)
 
@@ -104,7 +99,7 @@ export class Board extends React.Component{
 
     loadData(data) {
         if (this.state.allNotes.some(arr => arr.notes.length !== 0)) return
-
+        console.log(data)
         data.map((note) =>
             this.setState({
                 ...this.state.allNotes[note.columnIndex].notes.push(
