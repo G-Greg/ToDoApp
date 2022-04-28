@@ -36,8 +36,8 @@ const Note = ({id, priority, title, desc, date, handleDelete, columnIndex, handl
         handleClick(id)
     }
     return(
-        <Card style={{marginBottom: '3%'}} onClick={click}>
-            <Card.Body>
+        <Card style={{marginBottom: '3%'}} >
+            <Card.Body onClick={click}>
                 <Row>
                     <Col md="1">       
                     <div style={{color: getColor()}}>

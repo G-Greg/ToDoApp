@@ -54,20 +54,19 @@ export class Board extends React.Component{
                 desc: desc,
                 date: date
             })
-        })   
+        })
 
-        axios({
-            method: 'post',
-            url: 'https://localhost:7207/api/todoitems',
-            data: {
-                id: this.state.counter,
-                columnindex: columnIndex,
-                priority: priority,
-                cardtitle: title,
-                description: desc, 
-                date: date
-            }
-        }).catch(error => console.error('Unable to update item', error));
+        var item = {
+            id: 111,
+            columnindex: columnIndex,
+            priority: priority,
+            title: title,
+            description: desc,
+            date: date
+        }
+
+        console.log(item)
+        axios.post('/api/todoitems', item).catch(error => console.error('Unable to update item', error));
 
         this.forceUpdate()
     }
@@ -104,7 +103,7 @@ export class Board extends React.Component{
     }
 
     loadData(data) {
-        if (this.state.allNotes.some(arr => arr.notes.length != 0)) return
+        if (this.state.allNotes.some(arr => arr.notes.length !== 0)) return
 
         data.map((note) =>
             this.setState({

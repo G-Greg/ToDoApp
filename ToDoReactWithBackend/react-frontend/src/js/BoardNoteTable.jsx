@@ -40,7 +40,8 @@ export class BoardNoteTable extends React.Component{
         }
         else if(modal === "Note"){
             this.setState({
-                noteModalDisplay: bool
+                noteModalDisplay: bool,
+                data: null
             })
         }
     }
