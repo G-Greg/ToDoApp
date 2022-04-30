@@ -3,7 +3,7 @@ import {Button, Modal, Form} from 'react-bootstrap';
 import {useState, useEffect} from "react";
 
 
-export function NoteModal({handleNote, handleClose, columnIndex, loadData}) {
+export function NoteModal({handleNote, handleClose, columnIndex, loadData, handleUpdate}) {
 
   const [validated, setValidated] = useState(false);
 
@@ -14,7 +14,7 @@ export function NoteModal({handleNote, handleClose, columnIndex, loadData}) {
       event.stopPropagation();
     }    
     setValidated(true);
-    event.currentTarget.checkValidity() ? collectData() : console.log("Not ubmited")
+    event.currentTarget.checkValidity() ? collectData(event) : console.log("Not submited")
   };
   
   const Close = () => {
@@ -26,9 +26,29 @@ export function NoteModal({handleNote, handleClose, columnIndex, loadData}) {
   const [desc, setDesc] = useState("")
   const [date, setDate] = useState()
 
-  const collectData = () => {
-    Close()
-    handleNote(priority, title, desc, date.replaceAll('-','.'), columnIndex)
+  const collectData = (event) => {
+      Close()
+
+      if (loadData === null) {
+        const newNote = {
+            columnindex: columnIndex,
+            priority: priority,
+            title: title,
+            description: desc,
+            date: date.replaceAll('-', '.')
+        }
+        handleNote(newNote)
+    }
+    else {
+      const updateNote = {
+          columnindex: columnIndex,
+          priority: event.target.elements[1].value,
+          title: event.target.elements[0].value,
+          description: event.target.elements[2].value,
+          date: event.target.elements[3].value.replaceAll('-', '.')
+      }
+      handleUpdate(loadData.id, updateNote)
+    }
   }
 
   useEffect(() => {
@@ -38,7 +58,6 @@ export function NoteModal({handleNote, handleClose, columnIndex, loadData}) {
         setDesc(loadData.description)
         setDate(loadData.date)
       }
-      //document.getElementById("titleName").value = "asd"
   });
 
   return (

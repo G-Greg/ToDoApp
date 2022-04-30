@@ -36,29 +36,20 @@ export class Board extends React.Component{
         this.forceUpdate()
     }
 
-    handleNewNote = (priority, title, desc, date, columnIndex) => {
-        this.setState({
-            ...this.state.allNotes[columnIndex].notes.push(
-            {
-                priority: priority,
-                cardTitle: title,
-                desc: desc,
-                date: date
-            })
-        })
-
-        var item = {
-            columnindex: columnIndex,
-            priority: priority,
-            title: title,
-            description: desc,
-            date: date
-        }
-
-        console.log(item)
-        axios.post('/api/todoitems', item).catch(error => console.error('Unable to update item', error));
-
-        this.forceUpdate()
+    handleNewNote = (newNote) => {
+        axios.post('/api/todoitems', newNote)
+            .then(res =>      
+                this.setState({
+                    ...this.state.allNotes[newNote.columnindex].notes.push(
+                        {
+                        id: res.data.id,
+                        priority: newNote.priority,
+                        cardTitle: newNote.title,
+                        desc: newNote.description,
+                        date: newNote.date
+                    })
+                }))
+            .catch(error => console.error('Unable to update item', error));
     }
 
     handleDeleteNote = (id, columnIndex) => {
@@ -88,6 +79,18 @@ export class Board extends React.Component{
 
         this.forceUpdate()
     }
+
+    handleUpdateNote = (id, updateNote) => {
+
+        this.setState({
+            ...this.state.allNotes[updateNote.columnindex].notes.map(n => n.id === id ? {...n, updateNote} : n)
+        });
+
+        console.log(this.state.allNotes)
+        axios.put(`api/todoitems/${id}`, updateNote).catch(error => console.error('Unable to update item', error));
+
+        this.forceUpdate()
+    }
     
     componentDidMount() {
         axios.get('api/todoitems').then(res => {
@@ -99,7 +102,7 @@ export class Board extends React.Component{
 
     loadData(data) {
         if (this.state.allNotes.some(arr => arr.notes.length !== 0)) return
-        console.log(data)
+
         data.map((note) =>
             this.setState({
                 ...this.state.allNotes[note.columnIndex].notes.push(
@@ -127,7 +130,8 @@ export class Board extends React.Component{
                         handleTitle={this.handleTitleChange}
                         handleNote={this.handleNewNote}
                         handleDelete={this.handleDeleteNote}
-                        handleMove={this.handleMoveNote}/>         
+                        handleMove={this.handleMoveNote}
+                        handleUpdate={this.handleUpdateNote}/>
                     )
                 }
                 </Row>
