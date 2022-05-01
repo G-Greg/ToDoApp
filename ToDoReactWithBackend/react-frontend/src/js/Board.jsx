@@ -81,15 +81,28 @@ export class Board extends React.Component{
     }
 
     handleUpdateNote = (id, updateNote) => {
-
+        /*const notes = this.state.allNotes[updateNote.columnindex].notes
         this.setState({
-            ...this.state.allNotes[updateNote.columnindex].notes.map(n => n.id === id ? {...n, updateNote} : n)
+            //...this.state.allNotes[updateNote.columnindex].notes.map(n => n.id === id ? {...n, updateNote} : n)
+            ...this.state.allNotes[updateNote.columnindex].notes, notes: { ...notes.map(n => n.id === id ? updateNote : n)}
+        });*/
+
+
+        const index = this.state.allNotes[updateNote.columnindex].notes.findIndex(n => n.id === id);
+        this.setState({
+            ...this.state.allNotes[updateNote.columnindex].notes[index] = {
+                id: id,
+                priority: updateNote.priority,
+                cardTitle: updateNote.title,
+                desc: updateNote.description,
+                date: updateNote.date
+            }
         });
 
         console.log(this.state.allNotes)
         axios.put(`api/todoitems/${id}`, updateNote).catch(error => console.error('Unable to update item', error));
 
-        this.forceUpdate()
+        //this.forceUpdate()
     }
     
     componentDidMount() {

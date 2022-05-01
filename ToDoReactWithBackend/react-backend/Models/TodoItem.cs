@@ -4,7 +4,7 @@
     {
         static private long id = 0;
 
-        public long Id { get; private set; }
+        public long Id { get; set; }
         public int ColumnIndex { get; set; }
         public int Priority { get; set; }
         public string? Title { get; set; }

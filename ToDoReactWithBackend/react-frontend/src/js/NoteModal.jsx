@@ -40,9 +40,10 @@ export function NoteModal({handleNote, handleClose, columnIndex, loadData, handl
         handleNote(newNote)
     }
     else {
-      const updateNote = {
+        const updateNote = {
+          id: loadData.id,
           columnindex: columnIndex,
-          priority: event.target.elements[1].value,
+          priority: parseInt(event.target.elements[1].value),
           title: event.target.elements[0].value,
           description: event.target.elements[2].value,
           date: event.target.elements[3].value.replaceAll('-', '.')
@@ -52,6 +53,7 @@ export function NoteModal({handleNote, handleClose, columnIndex, loadData, handl
   }
 
   useEffect(() => {
+      console.log(loadData)
       if (loadData) {
         setPriority(loadData.priority)
         setTitle(loadData.title)
@@ -75,7 +77,7 @@ export function NoteModal({handleNote, handleClose, columnIndex, loadData, handl
 
             <Form.Group className="mb-3" controlId="prio">
               <Form.Label>Priority</Form.Label>
-                <Form.Select onChange={e => setPriority(e.target.selectedIndex)} defaultValue={loadData ? loadData.priority : 0}>
+                <Form.Select onChange={e => setPriority(e.target.selectedIndex)} defaultValue={priority}>
                 <option value="0">Critical</option>
                 <option value="1">High</option>
                 <option value="2">Medium</option>

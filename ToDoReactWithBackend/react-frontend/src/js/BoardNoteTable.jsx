@@ -64,7 +64,7 @@ export class BoardNoteTable extends React.Component{
         return(
         <div className="noteTable">
                 { this.state.nameModalDisplay ? <NameModal handleTitle={this.props.handleTitle} titleId={this.props.nemkey} handleClose={this.handleModalClose}/> : null }
-                {this.state.noteModalDisplay ? <NoteModal loadData={this.state.data} handleNote={this.props.handleNote} columnIndex={this.props.nemkey} handleClose={this.handleModalClose} handleUpdate={this.props.handleUpdate}/> : null }
+                { this.state.noteModalDisplay ? <NoteModal loadData={this.state.data} handleNote={this.props.handleNote} columnIndex={this.props.nemkey} handleClose={this.handleModalClose} handleUpdate={this.props.handleUpdate}/> : null }
             <Row>
                 <Col md="8">
                     <h4>{this.props.name}</h4>
