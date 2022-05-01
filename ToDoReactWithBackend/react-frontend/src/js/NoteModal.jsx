@@ -53,7 +53,6 @@ export function NoteModal({handleNote, handleClose, columnIndex, loadData, handl
   }
 
   useEffect(() => {
-      console.log(loadData)
       if (loadData) {
         setPriority(loadData.priority)
         setTitle(loadData.title)

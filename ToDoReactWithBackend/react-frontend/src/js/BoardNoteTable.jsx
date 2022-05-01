@@ -6,6 +6,7 @@ import { Row, Col} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faPlus } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
+import { Draggable } from 'react-beautiful-dnd';
 //import { propTypes } from 'react-bootstrap/esm/Image';
 
 export class BoardNoteTable extends React.Component{
@@ -91,19 +92,26 @@ export class BoardNoteTable extends React.Component{
                 {
                     this.state.notes.sort((a, b) => (a.priority > b.priority) ? 1 : -1)
                     .map((note, noteIndex) => {
-                        return(
-                        <Note 
-                            key = {noteIndex}
-                            id = {note.id}
-                            columnIndex = {this.props.nemkey}
-                            priority = {note.priority}
-                            title = {note.cardTitle}
-                            desc = {note.desc}
-                            date = {note.date}
-                            handleDelete = {this.props.handleDelete}
-                            handleUpdate = {this.props.handleUpdate}
-                            handleClick = {this.handleOnClick}
-                        />)
+                        return (
+                            <Draggable draggableId={note.id.toString()} key={note.id} index={noteIndex}>
+                                {(provided, snapshot) => (
+                                    <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                                        <Note 
+                                            key = {noteIndex}
+                                            id = {note.id}
+                                            columnIndex = {this.props.nemkey}
+                                            priority = {note.priority}
+                                            title = {note.cardTitle}
+                                            desc = {note.desc}
+                                            date = {note.date}
+                                            handleDelete = {this.props.handleDelete}
+                                            handleUpdate = {this.props.handleUpdate}
+                                            handleClick = {this.handleOnClick}
+                                            />
+                                    </div>
+                                )}
+                            </Draggable>
+                        )
                     })
                 }
             </div>

@@ -2,7 +2,7 @@ import React from 'react';
 import { Row } from 'react-bootstrap';
 import { BoardNoteTable } from './BoardNoteTable';
 import axios from 'axios';
-
+import { DragDropContext, Droppable} from 'react-beautiful-dnd';
 
 export class Board extends React.Component{
     constructor() {
@@ -64,12 +64,6 @@ export class Board extends React.Component{
 
 
     handleUpdateNote = (id, updateNote) => {
-        /*const notes = this.state.allNotes[updateNote.columnindex].notes
-        this.setState({
-            //...this.state.allNotes[updateNote.columnindex].notes.map(n => n.id === id ? {...n, updateNote} : n)
-            ...this.state.allNotes[updateNote.columnindex].notes, notes: { ...notes.map(n => n.id === id ? updateNote : n)}
-        });*/
-
 
         const index = this.state.allNotes[updateNote.columnindex].notes.findIndex(n => n.id === id);
         this.setState({
@@ -112,22 +106,52 @@ export class Board extends React.Component{
         )
     }
 
+    onDragEnd = (move) => {
+        const note = this.state.allNotes[move.source.droppableId].notes[move.source.index]
+
+        note.columnindex = move.destination ? parseInt(move.destination.droppableId) : note.columnindex
+
+        var item = {
+            id: note.id,
+            columnindex: note.columnindex,
+            priority: note.priority,
+            title: note.cardTitle,
+            description: note.desc,
+            date: note.date
+        }
+        axios.put(`api/todoitems/${note.id}`, item).catch(error => console.error('Unable to update item', error));
+    };
+
     render(){
         return(
             <div className="board">
                 <h1>Project Board</h1>
                 <hr/>
+                <DragDropContext onDragEnd={this.onDragEnd}>
                 <Row md={5}>
                 {
                     this.state.allNotes.map((_, boardIndex) => 
-                        <BoardNoteTable key={boardIndex} nemkey={boardIndex} name={this.state.allNotes[boardIndex].title} notes={this.state.allNotes[boardIndex].notes} 
-                        handleTitle={this.handleTitleChange}
-                        handleNote={this.handleNewNote}
-                        handleDelete={this.handleDeleteNote}
-                        handleUpdate={this.handleUpdateNote}/>
+                        <Droppable droppableId={boardIndex.toString()} key={boardIndex}>
+                            {(provided, snapshot) => (
+                                <div ref={provided.innerRef}>
+
+                                    <BoardNoteTable
+                                        key={boardIndex}
+                                        nemkey={boardIndex}
+                                        name={this.state.allNotes[boardIndex].title}
+                                        notes={this.state.allNotes[boardIndex].notes}
+                                        handleTitle={this.handleTitleChange}
+                                        handleNote={this.handleNewNote}
+                                        handleDelete={this.handleDeleteNote}
+                                        handleUpdate={this.handleUpdateNote}
+                                    />
+                                {provided.placeholder}</div>
+                            )}
+                        </Droppable>
                     )
                 }
                 </Row>
+                </DragDropContext>
             </div>
         )
     }
