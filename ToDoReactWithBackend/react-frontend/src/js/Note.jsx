@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar, faExclamationCircle, faArrowLeft, faArrowRight, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 
-const Note = ({id, priority, title, desc, date, handleDelete, columnIndex, handleMove, handleClick}) => {
+const Note = ({id, priority, title, desc, date, handleDelete, columnIndex, handleUpdate, handleClick}) => {
     const getColor = () => {
         if (priority === 0){
             return "red"
@@ -25,11 +25,26 @@ const Note = ({id, priority, title, desc, date, handleDelete, columnIndex, handl
     }
 
     const moveRight = () => {
-        handleMove(id, columnIndex, "toRight")
+        //handleMove(id, columnIndex, "toRight")
+        prepareUpdate("toRight")
     }
 
     const moveLeft = () => {
-        handleMove(id, columnIndex, "toLeft")
+        //handleMove(id, columnIndex, "toLeft")
+        prepareUpdate("toLeft")
+    }
+
+    const prepareUpdate = (toMove) => {
+        const index = toMove === "toRight" ? columnIndex + 1 : columnIndex - 1
+        const updateNote = {
+            id: id,
+            columnindex: index,
+            priority: priority,
+            title: title,
+            description: desc,
+            date: date
+        }
+        handleUpdate(id, updateNote)
     }
 
     const click = () => {

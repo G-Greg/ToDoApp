@@ -59,26 +59,9 @@ export class Board extends React.Component{
         })
 
         axios.delete(`api/todoitems/${id}`)
-
         this.forceUpdate()
     }
 
-    handleMoveNote = (id, columnIndex, toMove) => {
-
-        const found = this.state.allNotes[columnIndex].notes.find(n => n.id === id);
-
-        this.setState({
-            ...this.state.allNotes[columnIndex].notes.find(n => n.id === id).columnindex = toMove === "toRight" ? columnIndex + 1 : columnIndex - 1
-        });
-
-        console.log(found)
-        //this.handleDeleteNote(id, columnIndex)
-        //this.handleNewNote(found.priority, found.cardTitle, found.desc, found.date, toMove === "toRight" ? columnIndex + 1 : columnIndex - 1)
-
-        axios.put(`api/todoitems/${id}`, found)
-
-        this.forceUpdate()
-    }
 
     handleUpdateNote = (id, updateNote) => {
         /*const notes = this.state.allNotes[updateNote.columnindex].notes
@@ -99,9 +82,7 @@ export class Board extends React.Component{
             }
         });
 
-        console.log(this.state.allNotes)
         axios.put(`api/todoitems/${id}`, updateNote).catch(error => console.error('Unable to update item', error));
-
         //this.forceUpdate()
     }
     
@@ -115,7 +96,7 @@ export class Board extends React.Component{
 
     loadData(data) {
         if (this.state.allNotes.some(arr => arr.notes.length !== 0)) return
-
+        console.log(this.state.allNotes)
         data.map((note) =>
             this.setState({
                 ...this.state.allNotes[note.columnIndex].notes.push(
@@ -143,7 +124,6 @@ export class Board extends React.Component{
                         handleTitle={this.handleTitleChange}
                         handleNote={this.handleNewNote}
                         handleDelete={this.handleDeleteNote}
-                        handleMove={this.handleMoveNote}
                         handleUpdate={this.handleUpdateNote}/>
                     )
                 }
