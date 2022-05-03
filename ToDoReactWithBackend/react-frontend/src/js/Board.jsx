@@ -107,7 +107,7 @@ export class Board extends React.Component{
     }
 
     onDragEnd = (move) => {
-        const note = this.state.allNotes[move.source.droppableId].notes[move.source.index]
+        const note = this.state.allNotes[move.source.droppableId].notes.find(n => n.id == parseInt(move.draggableId))
 
         note.columnindex = move.destination ? parseInt(move.destination.droppableId) : note.columnindex
 
@@ -143,7 +143,6 @@ export class Board extends React.Component{
                                         handleTitle={this.handleTitleChange}
                                         handleNote={this.handleNewNote}
                                         handleDelete={this.handleDeleteNote}
-                                        handleUpdate={this.handleUpdateNote}
                                     />
                                 {provided.placeholder}</div>
                             )}
