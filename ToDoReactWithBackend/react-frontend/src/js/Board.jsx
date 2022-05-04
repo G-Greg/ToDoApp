@@ -67,7 +67,7 @@ export class Board extends React.Component{
 
         const index = this.state.allNotes[updateNote.columnindex].notes.findIndex(n => n.id === id);
         this.setState({
-            ...this.state.allNotes[updateNote.columnindex].notes[index], note: {
+            ...this.state.allNotes[updateNote.columnindex].notes[index] = {
                 id: id,
                 priority: updateNote.priority,
                 cardTitle: updateNote.title,
@@ -107,11 +107,12 @@ export class Board extends React.Component{
     }
 
     onDragEnd = (move) => {
-        const note = this.state.allNotes[move.source.droppableId].notes.find(n => n.id === parseInt(move.draggableId))
+        let note = this.state.allNotes[move.source.droppableId].notes.find(n => n.id === parseInt(move.draggableId))
+        const index = this.state.allNotes[move.source.droppableId].notes.findIndex(n => n.id === note.id)
 
         note.columnindex = move.destination ? parseInt(move.destination.droppableId) : note.columnindex
 
-        var item = {
+        let item = {
             id: note.id,
             columnindex: note.columnindex,
             priority: note.priority,
@@ -119,6 +120,24 @@ export class Board extends React.Component{
             description: note.desc,
             date: note.date
         }
+
+        this.setState({
+            ...this.state.allNotes[move.source.droppableId].notes.splice(index, 1)
+        })
+
+
+        this.setState({
+            ...this.state.allNotes[move.destination.droppableId].notes.push(
+            {
+                id: note.id,
+                columnindex: note.columnindex,
+                priority: note.priority,
+                cardTitle: note.cardTitle,
+                desc: note.desc,
+                date: note.date
+            })
+        })
+
         axios.put(`api/todoitems/${note.id}`, item).catch(error => console.error('Unable to update item', error));
     };
 
