@@ -1,18 +1,30 @@
 # Kanban Board with React and ASP.NET Core
-
+## Teendőket kezelő webalkalmazás
 A projekt célja, hogy egy működő Kanban Board-ot valósítson meg. Frontend és backendből tevődik össze.
 
 A böngészőben jelenik meg a React alapon elkészült frontend. Felületén teendők kártyákat lehet hozzáadni, módosítani, mozgatni az oszlopok között, illetve törölni.
 
 A frontend-en történő módosítás össze van kötve megfelelő API végpontokkal így az adatok egyből perzistens módon tárolódnak el. A tárolásra szolgál egy adatbázis SQL segítségével.
 
+## A tábla felépítése
+- Oszlop
+- Teendő
+- Kártya
 
+## Kezelőfelület 
+- Gombok
+- Drag and Drop
+- Bootstap
+- Input/Output
+- Szerkesztés
 
 ## Available Scripts
 
 In the project directory, you can run:
 
-### `npm start`
+```
+npm start
+```
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
