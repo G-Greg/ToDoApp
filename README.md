@@ -1,4 +1,10 @@
 # Kanban Board with React and ASP.NET Core
+[![Npm package version](https://badgen.net/badge/react/v17.0.2/green)](https://www.npmjs.com/package/react)
+[![Npm package version](https://badgen.net/badge/react-bootstrap/v2.3.1)](https://www.npmjs.com/package/react-bootstrap)
+[![Npm package version](https://badgen.net/badge/react-beautiful-dnd/v13.1.0/cyan)](https://www.npmjs.com/package/react-beautiful-dnd)
+[![Npm package version](https://badgen.net/badge/@fortawesome%2Freact-fontawesome/v0.1.18/orange)](https://www.npmjs.com/package/@fortawesome/react-fontawesome)
+
+
 ## Teendőket kezelő webalkalmazás
 A projekt célja, hogy egy működő Kanban Board-ot valósítson meg. Frontend és backendből tevődik össze.
 
@@ -7,9 +13,14 @@ A böngészőben jelenik meg a React alapon elkészült frontend. Felületén te
 A frontend-en történő módosítás össze van kötve megfelelő API végpontokkal így az adatok egyből perzistens módon tárolódnak el. A tárolásra szolgál egy adatbázis SQL segítségével.
 
 ## A tábla felépítése
-- Oszlop
-- Teendő
-- Kártya
+<img src="https://user-images.githubusercontent.com/24989500/167016415-9ac3764a-0098-473a-a5db-9f709b3f5be7.png" width="300">
+
+- **Oszlop**: A táblán négy oszlop található, amiben vannak a teendők
+- **Teendő**: Egy teendőnek van egy prioritása, címe, feladat leírása, határideje
+
+A teendők a prioritás által kerülnek sorrendbe. Amennyiben azonos a sorrend két prioritás között ott akár a felhasználó is tud sorrendet cserélni a teendő megragadásával és átmozgatásával.
+Átmozgatással lehet továbbá az oszlopokat is változtatni.
+Lehetőség van egy teendő adatainak megváltoztatására egyszerű rákattintással.
 
 ## Kezelőfelület 
 - Gombok
@@ -18,7 +29,7 @@ A frontend-en történő módosítás össze van kötve megfelelő API végponto
 - Input/Output
 - Szerkesztés
 
-## Available Scripts
+## Használata
 
 In the project directory, you can run:
 
@@ -28,33 +39,5 @@ npm start
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
 
