@@ -23,7 +23,7 @@ export function NoteModal({handleNote, handleClose, columnIndex, loadData, handl
 
   const [priority, setPriority] = useState(0);
   const [title, setTitle] = useState("");
-  const [desc, setDesc] = useState("")
+  const [description, setDesc] = useState("")
   const [date, setDate] = useState()
 
   const collectData = (event) => {
@@ -34,7 +34,7 @@ export function NoteModal({handleNote, handleClose, columnIndex, loadData, handl
             columnindex: columnIndex,
             priority: priority,
             title: title,
-            description: desc,
+            description: description,
             date: date.replaceAll('-', '.')
         }
         handleNote(newNote)

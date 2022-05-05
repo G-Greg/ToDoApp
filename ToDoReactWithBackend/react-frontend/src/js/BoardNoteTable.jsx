@@ -101,8 +101,8 @@ export class BoardNoteTable extends React.Component{
                                             id = {note.id}
                                             columnIndex = {this.props.nemkey}
                                             priority = {note.priority}
-                                            title = {note.cardTitle}
-                                            desc = {note.desc}
+                                            title = {note.title}
+                                            description={note.description}
                                             date = {note.date}
                                             handleDelete = {this.props.handleDelete}
                                             handleClick = {this.handleOnClick}

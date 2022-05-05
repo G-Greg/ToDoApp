@@ -45,8 +45,8 @@ export class Board extends React.Component{
                         id: res.data.id,
                         customorder: this.getNextOrder(newNote.columnindex),
                         priority: newNote.priority,
-                        cardTitle: newNote.title,
-                        desc: newNote.description,
+                        title: newNote.title,
+                        description: newNote.description,
                         date: newNote.date
                     })
                 }))
@@ -71,8 +71,8 @@ export class Board extends React.Component{
                 id: id,
                 priority: updateNote.priority,
                 customorder: updateNote.customorder,
-                cardTitle: updateNote.title,
-                desc: updateNote.description,
+                title: updateNote.title,
+                description: updateNote.description,
                 date: updateNote.date
             }
         });
@@ -100,8 +100,8 @@ export class Board extends React.Component{
                     columnindex: note.columnIndex,
                     customorder: note.customOrder,
                     priority: note.priority,
-                    cardTitle: note.title,
-                    desc: note.description,
+                    title: note.title,
+                    description: note.description,
                     date: note.date
                 })
             })
@@ -149,8 +149,8 @@ export class Board extends React.Component{
             id: note.id,
             columnindex: note.columnindex,
             priority: note.priority,
-            title: note.cardTitle,
-            description: note.desc,
+            title: note.title,
+            description: note.description,
             date: note.date
           }
 
@@ -164,8 +164,8 @@ export class Board extends React.Component{
                 id: note.id,
                 columnindex: note.columnindex,
                 priority: note.priority,
-                cardTitle: note.cardTitle,
-                desc: note.desc,
+                title: note.title,
+                description: note.description,
                 date: note.date
             })
           })
