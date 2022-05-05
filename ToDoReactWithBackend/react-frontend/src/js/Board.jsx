@@ -41,8 +41,9 @@ export class Board extends React.Component{
             .then(res =>      
                 this.setState({
                     ...this.state.allNotes[newNote.columnindex].notes.push(
-                        {
+                    {
                         id: res.data.id,
+                        customorder: this.getNextOrder(newNote.columnindex),
                         priority: newNote.priority,
                         cardTitle: newNote.title,
                         desc: newNote.description,
@@ -64,12 +65,12 @@ export class Board extends React.Component{
 
 
     handleUpdateNote = (id, updateNote) => {
-
         const index = this.state.allNotes[updateNote.columnindex].notes.findIndex(n => n.id === id);
         this.setState({
             ...this.state.allNotes[updateNote.columnindex].notes[index] = {
                 id: id,
                 priority: updateNote.priority,
+                customorder: updateNote.customorder,
                 cardTitle: updateNote.title,
                 desc: updateNote.description,
                 date: updateNote.date
@@ -97,6 +98,7 @@ export class Board extends React.Component{
                 {
                     id: note.id,
                     columnindex: note.columnIndex,
+                    customorder: note.customOrder,
                     priority: note.priority,
                     cardTitle: note.title,
                     desc: note.description,
@@ -106,27 +108,82 @@ export class Board extends React.Component{
         )
     }
 
+    getNextOrder = (columnindex) => {
+        let max = 0
+        for (let i = 0; i < this.state.allNotes[columnindex].notes.length; i++) {
+            if (this.state.allNotes[columnindex].notes[i].customorder > max) {
+                max = this.state.allNotes[columnindex].notes[i].customorder
+            }
+        }
+        return max+1
+    }
+
     onDragEnd = (move) => {
-        let note = this.state.allNotes[move.source.droppableId].notes.find(n => n.id === parseInt(move.draggableId))
-        const index = this.state.allNotes[move.source.droppableId].notes.findIndex(n => n.id === note.id)
 
-        note.columnindex = move.destination ? parseInt(move.destination.droppableId) : note.columnindex
+        if (move.source.droppableId === move.destination.droppableId) {
+            const items = Array.from(this.state.allNotes[move.source.droppableId].notes);
+            const [reorderedItem] = items.splice(move.source.index, 1);
+            items.splice(move.destination.index, 0, reorderedItem);
 
-        let item = {
+            this.setState({
+                ...this.state.allNotes[move.source.droppableId].notes = items
+            })
+
+            for (let i = 0; i < this.state.allNotes[move.source.droppableId].notes.length; i++) {
+                this.setState({
+                    ...this.state.allNotes[move.source.droppableId].notes[i].customorder = i
+                })               
+            }
+
+        
+            console.log(this.state.allNotes)
+        /*
+
+        if (move.source.droppableId === move.destination.droppableId) {
+
+            if (false) {
+                for (let i = parseInt(move.destination.index); i < this.state.allNotes[move.source.droppableId].notes.length; i++) {
+                    //id?
+                    console.log(move.destination.index, this.state.allNotes[move.source.droppableId].notes[i].customorder)
+                    if (move.destination.index === this.state.allNotes[move.source.droppableId].notes[i].customorder) {
+                        this.setState({ ...this.state.allNotes[move.source.droppableId].notes[i].customorder = move.destination.index + 1 })
+                        //console.log(this.state.allNotes[move.source.droppableId].notes[i], move.destination.index + 1)
+                    }
+                    else {
+                        this.setState({ ...this.state.allNotes[move.source.droppableId].notes[i].customorder = i + 1 })
+                        console.log(this.state.allNotes[move.source.droppableId].notes[i], i)
+                    }
+                }
+            }
+            this.setState({
+                ...this.state.allNotes[move.source.droppableId].notes[index].customorder = move.destination.index
+            })
+            console.log(this.state.allNotes[move.source.droppableId].notes[index].customorder, move.destination.index)
+            
+            //this.state.allNotes[move.source.droppableId].notes.map((n, i) => n.customorder !== i ?? this.setState( n.customorder = i ))
+
+
+            console.log(this.state.allNotes[move.source.droppableId].notes[index].customorder, move.destination.index)
+            console.log(this.state.allNotes)
+            //axios.put(`api/todoitems/${note.id}`, item).catch(error => console.error('Unable to update item', error));
+        }
+        else {
+          note.columnindex = move.destination ? parseInt(move.destination.droppableId) : note.columnindex
+
+          let item = {
             id: note.id,
             columnindex: note.columnindex,
             priority: note.priority,
             title: note.cardTitle,
             description: note.desc,
             date: note.date
-        }
+          }
 
-        this.setState({
+          this.setState({
             ...this.state.allNotes[move.source.droppableId].notes.splice(index, 1)
-        })
+          })
 
-
-        this.setState({
+          this.setState({
             ...this.state.allNotes[move.destination.droppableId].notes.push(
             {
                 id: note.id,
@@ -136,9 +193,10 @@ export class Board extends React.Component{
                 desc: note.desc,
                 date: note.date
             })
-        })
+          })
+          axios.put(`api/todoitems/${note.id}`, item).catch(error => console.error('Unable to update item', error));*/
+        }
 
-        axios.put(`api/todoitems/${note.id}`, item).catch(error => console.error('Unable to update item', error));
     };
 
     render(){

@@ -90,7 +90,7 @@ export class BoardNoteTable extends React.Component{
             <hr/>
             <div className='NoteList'>
                 {
-                    this.state.notes.sort((a, b) => (a.priority > b.priority) ? 1 : -1)
+                    this.state.notes.sort((a, b) => (a.priority > b.priority || (a.priority === b.priority && a.customorder > b.customorder)) ? 1 : -1)
                     .map((note, noteIndex) => {
                         return (
                             <Draggable draggableId={note.id.toString()} key={note.id} index={noteIndex}>

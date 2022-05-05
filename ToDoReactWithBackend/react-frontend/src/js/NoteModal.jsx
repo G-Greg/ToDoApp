@@ -38,16 +38,17 @@ export function NoteModal({handleNote, handleClose, columnIndex, loadData, handl
             date: date.replaceAll('-', '.')
         }
         handleNote(newNote)
-    }
-    else {
+      }
+      else {
         const updateNote = {
           id: loadData.id,
           columnindex: columnIndex,
+          customorder: loadData.customOrder,
           priority: parseInt(event.target.elements[1].value),
           title: event.target.elements[0].value,
           description: event.target.elements[2].value,
           date: event.target.elements[3].value.replaceAll('-', '.')
-      }
+        }
       handleUpdate(loadData.id, updateNote)
     }
   }
