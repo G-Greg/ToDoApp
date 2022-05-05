@@ -73,6 +73,39 @@ namespace react_backend.Controllers
             return NoContent();
         }
 
+        // PUT: api/TodoItems/column/1
+        [HttpPut("column/{id}")]
+        public async Task<IActionResult> PutTodoColumn(long id, List<TodoItem> todoItems)
+        {
+            foreach (var todoItem in todoItems)
+            {
+                if (id != todoItem.ColumnIndex)
+                {
+                    return BadRequest();
+                }
+
+                _context.Entry(todoItem).State = EntityState.Modified;
+
+                try
+                {
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!TodoColumnExists(id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+
+            }
+            return NoContent();
+        }
+
         // POST: api/TodoItems
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
@@ -104,6 +137,11 @@ namespace react_backend.Controllers
         private bool TodoItemExists(long id)
         {
             return _context.TodoItems.Any(e => e.Id == id);
+        }
+
+        private bool TodoColumnExists(long id)
+        {
+            return _context.TodoItems.Any(e => e.ColumnIndex == id);
         }
     }
 }
