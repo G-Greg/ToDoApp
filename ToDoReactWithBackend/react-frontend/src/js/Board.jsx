@@ -119,6 +119,7 @@ export class Board extends React.Component{
     }
 
     onDragEnd = (move) => {
+
         let note = this.state.allNotes[move.source.droppableId].notes.find(n => n.id === parseInt(move.draggableId))
         const index = this.state.allNotes[move.source.droppableId].notes.findIndex(n => n.id === note.id)
 
@@ -136,42 +137,33 @@ export class Board extends React.Component{
                     ...this.state.allNotes[move.source.droppableId].notes[i].customorder = i
                 })               
             }
-
         
-            console.log(this.state.allNotes)
-        
-            axios.put(`api/todoitems/column/${parseInt(move.source.droppableId)}`, this.state.allNotes[move.source.droppableId].notes).catch(error => console.error('Unable to update item', error));
+            axios.put(`api/todoitems/column/${parseInt(move.source.droppableId)}`, this.state.allNotes[move.source.droppableId].notes)
+                .catch(error => console.error('Unable to update item', error));
         }
         else {
-          note.columnindex = move.destination ? parseInt(move.destination.droppableId) : note.columnindex
+            note.columnindex = move.destination ? parseInt(move.destination.droppableId) : note.columnindex
 
-          let item = {
-            id: note.id,
-            columnindex: note.columnindex,
-            priority: note.priority,
-            title: note.title,
-            description: note.description,
-            date: note.date
-          }
-
-          this.setState({
-            ...this.state.allNotes[move.source.droppableId].notes.splice(index, 1)
-          })
-
-          this.setState({
-            ...this.state.allNotes[move.destination.droppableId].notes.push(
-            {
-                id: note.id,
-                columnindex: note.columnindex,
-                priority: note.priority,
-                title: note.title,
-                description: note.description,
-                date: note.date
+            this.setState({
+                ...this.state.allNotes[move.source.droppableId].notes.splice(index, 1)
             })
-          })
-          axios.put(`api/todoitems/${note.id}`, item).catch(error => console.error('Unable to update item', error));
-        }
 
+            this.setState({
+                ...this.state.allNotes[move.destination.droppableId].notes.push(
+                {
+                    id: note.id,
+                    columnindex: note.columnindex,
+                    customorder: note.customorder,
+                    priority: note.priority,
+                    title: note.title,
+                    description: note.description,
+                    date: note.date
+                })
+            })
+
+            axios.put(`api/todoitems/${note.id}`, note).catch(error => console.error('Unable to update item', error));
+            console.log(this.state.allNotes)
+        }
     };
 
     render(){
@@ -186,7 +178,6 @@ export class Board extends React.Component{
                         <Droppable droppableId={boardIndex.toString()} key={boardIndex}>
                             {(provided, snapshot) => (
                                 <div ref={provided.innerRef}>
-
                                     <BoardNoteTable
                                         key={boardIndex}
                                         nemkey={boardIndex}
