@@ -8,14 +8,14 @@
 ## Teendőket kezelő webalkalmazás
 A projekt célja, hogy egy működő Kanban Board-ot valósítson meg. Frontend és backendből tevődik össze.
 
-A böngészőben jelenik meg a React alapon elkészült frontend. Felületén teendők kártyákat lehet hozzáadni, módosítani, mozgatni az oszlopok között, illetve törölni.
+A böngészőben jelenik meg a React alapon elkészült frontend. Felületén teendők kártyákat lehet hozzáadni, módosítani, mozgatni az oszlopok között, illetve törölni azokat.
 
 A frontend-en történő módosítás össze van kötve megfelelő API végpontokkal így az adatok egyből perzistens módon tárolódnak el. Az adatok tárolására egy SQL adatbázis gondoskodik.
 
 ## A tábla felépítése
 <img src="https://user-images.githubusercontent.com/24989500/167016415-9ac3764a-0098-473a-a5db-9f709b3f5be7.png" width="280">
 
-- **Oszlop**: A táblán négy oszlop található, amiben vannak a teendők
+- **Oszlop**: A táblán négy oszlop található, ami a teendőket segíti csoportosítani oszlopokba
 - **Teendő**: Egy teendőnek van egy prioritása, címe, feladat leírása, határideje
   - **Prioritás**: A teendő fontosságát jelöli, ami lehet ***CRITICAL-piros, HIGH-narancs, MEDIUM-kék, LOW-zöld***
   - **Cím**: Teendő rövid ismertetője
@@ -23,46 +23,53 @@ A frontend-en történő módosítás össze van kötve megfelelő API végponto
   - **Határidő**: Teendőnek beállított határidő
 
 ### Kezelőfelület 
-- **Teendő hozzáadása** az adtott oszlop tetején levő ``➕`` gombbal lehetséges. Egy felugró ablakban lehet megadni az adatokat a beviteli mezőkbe. Nem lehet üresen hagyni a beviteli mezőket ellenkező esetben sikertelen lesz a teendő hozzáadása, amit az ablak egyből jelez.
+- <ins>**Teendő hozzáadása**</ins> az adott oszlop tetején levő ``➕`` gombbal lehetséges. Egy felugró ablakban lehet megadni az adatokat a beviteli mezőkbe. Nem lehet üresen hagyni a beviteli mezőket ellenkező esetben sikertelen lesz a teendő hozzáadása, amit az ablak egyből jelez.
   
   <img src="https://user-images.githubusercontent.com/24989500/167196633-0fb74bf9-203d-404b-82af-0ec6879ea80b.png" width="300">
 
-- **Drag and Drop modul** szolgál a teendők mozgatására.
+- <ins>**Drag and Drop modul**</ins> szolgál a teendők mozgatására.
 A teendők a prioritás által kerülnek sorrendbe. Amennyiben azonos a sorrend két prioritás között ott a felhasználó is tud sorrendet cserélni a teendő megragadásával és fel-/lemozgatásával.
 Továbbá az oszlopokat is változtatni a teendők oldal írányú mozgatásával.
 
-- **Szerkesztés** egyszerűsége. Lehetőség van egy teendő adatainak megváltoztatására egyszerű rákattintással, ami egy felugró ablak segítségével könnyedén szerkeszthetővé válik. A létező adatokat betölti a szerver az adatbázisból a beviteli mezőkbe.
+- <ins>**Szerkesztés**</ins> egyszerűsége. Lehetőség van egy teendő adatainak megváltoztatására egyszerű rákattintással, ami egy felugró ablak segítségével könnyedén szerkeszthetővé válik. A létező adatokat betölti a szerver az adatbázisból a beviteli mezőkbe.
 
-- Bootstap
-- Input/Output
-- Szerkesztés
-
-...
+- <ins>**Beviteli mezők**</ins> amelyekből négy darab van és mindegyik különböző.
+  - Címhez egy sima text típusú mező tartozik
+  - Prioritáshoz egy legördülő menüből lehet választani (alapértelmezett a Critical)
+  - Leíráshoz egy textarea típusú mező tartozik
+  - Dátumhoz pedig egy date time típusú mező gondoskodik
+ 
+- <ins>**Bootstap modul**</ins> felhasználásával lett elkészítve a weboldal a letisztult designért.
 
 ## Strukturális felépítése
 
 ### Frontend
-Öt lényegi React komponensből áll össze.
-- Board
-- BoardNoteTable
-- Note
-- NoteModal
-- NameModal
+Öt lényegi React komponensből áll össze
+- <ins>**Board**</ins> a fő komponens. Inicializálja majd eltárolja az adatokat a state-ben. Legenerálja a négy *BoardNoteTable* oszlopot a megfelelő propertikkel
+- <ins>**BoardNoteTable**</ins> megkapja az oszlopban szereplő teendőket és annak az adatait, majd amennyit tartalmaz annyi *Note* teendőt létrehoz
+- <ins>**Note**</ins> egy teendőt reprezentál az oldalon. 
+- <ins>**NoteModal**</ins> felugró ablak szolgál egy *Note* lérehozására, szerksztésére
+- <ins>**NameModal**</ins> egy felugró ablak amennyiben szeretnénk átírni a oszlop címét
 
 ### Backend
 ASP.NET Core keretrendszer SQL adatbázissal
-- TodoItemsController
-- TodoContext
-- TodoItem
-- Program
+- <ins>**TodoItemsController**</ins> fogadja az API hívásokat, majd végrehajtódik ennek megfelelő a függvény
+- <ins>**TodoContext**</ins> 
+- <ins>**TodoItem**</ins> az adatosztályt reprezentálja
+- <ins>**Program**</ins> inicializálja valamint beállítja az adatbázist
+- <ins>**SQL**</ins> tárol egy TodoContext adatbázist egy Todo táblával benne a megfelelő TodoItem-ekkel.
 
-- SQL local database with ToDo table name
 ## Használata
 
-A projekt könyvtárában az alábbi parancs kiadásával indítható
+**Frontend**
 
+A projekt könyvtárában egy terminál ablakban az alábbi parancs kiadásával indítható program
 ```
 npm start
 ```
+Az alkalmazás a [https://localhost:3000](https://localhost:3000) porton fut.
 
-Az alkalmazás a [http://localhost:3000](http://localhost:3000) porton fog futni.
+**Backend**
+
+`react-backend.exe`-vel futtatható az adatbázis 
+> (ToDoReactWithBackend\react-backend\bin\Debug\net6.0\react-backend.exe)
