@@ -39,3 +39,5 @@ yarn-error.log*
 /ToDoReactWithBackend/react-backend/obj/Debug
 /ToDoReactWithBackend/react-backend/Properties
 
+/ToDoReactWithBackend/react-backend.Test/bin
+/ToDoReactWithBackend/react-backend.Test/obj

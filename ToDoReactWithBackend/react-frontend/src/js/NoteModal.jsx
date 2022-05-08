@@ -66,7 +66,7 @@ export function NoteModal({handleNote, handleClose, columnIndex, loadData, handl
     <>
       <Modal show={true} onHide={Close}>
         <Modal.Header closeButton>
-          <Modal.Title>Create a new note</Modal.Title>
+          <Modal.Title>{loadData ? "Edit note" : "Create a new note"}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form noValidate validated={validated} onSubmit={handleSubmit}>
@@ -98,7 +98,7 @@ export function NoteModal({handleNote, handleClose, columnIndex, loadData, handl
 
             <Modal.Footer>
               <Button variant="secondary" onClick={Close}>Close</Button>
-              <Button type="submit" variant="primary">Add Note</Button>
+              <Button type="submit" variant="primary">{loadData ? "Edit Note" : "Add Note"}</Button>
             </Modal.Footer>
           </Form>
         </Modal.Body>
