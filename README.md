@@ -3,6 +3,7 @@
 [![Npm package version](https://badgen.net/badge/react-bootstrap/v2.3.1)](https://www.npmjs.com/package/react-bootstrap)
 [![Npm package version](https://badgen.net/badge/react-beautiful-dnd/v13.1.0/cyan)](https://www.npmjs.com/package/react-beautiful-dnd)
 [![Npm package version](https://badgen.net/badge/@fortawesome%2Freact-fontawesome/v0.1.18/orange)](https://www.npmjs.com/package/@fortawesome/react-fontawesome)
+[![Npm package version](https://badgen.net/badge/axios/v0.27.2/red)](https://www.npmjs.com/package/axios)
 
 
 ## Teendőket kezelő webalkalmazás
@@ -58,6 +59,16 @@ ASP.NET Core keretrendszer SQL adatbázissal
 - <ins>**TodoItem**</ins> az adatosztályt reprezentálja
 - <ins>**Program**</ins> inicializálja valamint beállítja az adatbázist
 - <ins>**SQL**</ins> tárol egy TodoContext adatbázist egy Todo táblával benne a megfelelő TodoItem-ekkel.
+
+### APIs
+| METHOD | DESCRIPTIONS | URL
+| --- | --- | --- |
+| POST | Új teendő hozzadása | `api/todoitems`
+| GET | Összes teendő lekérdezése | `api/todoitems`
+| GET | ID alapán teendő lekérdezés | `api/todoitems/{id}`
+| PUT | ID alapján teendő frissítés | `api/todoitems/{id}`
+| PUT | ID alapján teendő oszlop frissítés | `api/todoitems/column/{id}`
+| DELETE | ID alapján teendő törlése | `api/todoitems/{id}`
 
 ## Használata
 
