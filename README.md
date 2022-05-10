@@ -65,7 +65,7 @@ ASP.NET Core keretrendszer SQL adatbázissal
 | --- | --- | --- |
 | POST | Új teendő hozzadása | `api/todoitems`
 | GET | Összes teendő lekérdezése | `api/todoitems`
-| GET | ID alapán teendő lekérdezés | `api/todoitems/{id}`
+| GET | ID alapján teendő lekérdezés | `api/todoitems/{id}`
 | PUT | ID alapján teendő frissítés | `api/todoitems/{id}`
 | PUT | ID alapján teendő oszlop frissítés | `api/todoitems/column/{id}`
 | DELETE | ID alapján teendő törlése | `api/todoitems/{id}`
