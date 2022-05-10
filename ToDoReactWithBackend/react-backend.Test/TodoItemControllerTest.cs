@@ -17,11 +17,37 @@ namespace react_backend.Test
         };
 
         [Fact]
+        public async void GetTodoItemTest()
+        {
+            using (var testScope = TestWebAppFactory.Create())
+            {
+                var client = testScope.CreateClient();
+                testScope.AddSeedEntities(TestTodoItems);
+                //await client.PostAsJsonAsync("/api/todoitems", new TodoItem { ColumnIndex = 0, CustomOrder = 1, Priority = 2, Title = "test title2", Description = "test desc2", Date = "2022.05.08" });
+                var actual = testScope.GetDbTableContent<TodoItem>();
+                var response = await client.GetAsync("/api/todoitems");
+
+                Assert.Equal("test title2", response.ToString());
+            }
+        }
+
+        [Fact]
         public async void PostTodoItemTest()
         {
             using (var testScope = TestWebAppFactory.Create())
             {
-                //testScope.AddSeedEntities(TestTodoItems);
+                var client = testScope.CreateClient();
+                var response = await client.PostAsJsonAsync("/api/todoitems", new TodoItem { ColumnIndex = 0, CustomOrder = 1, Priority = 2, Title = "test title2", Description = "test desc2", Date = "2022.05.08" });
+
+                Assert.Equal(System.Net.HttpStatusCode.Created, response.StatusCode);
+            }
+        }
+
+        [Fact]
+        public async void PutTodoItemTest()
+        {
+            using (var testScope = TestWebAppFactory.Create())
+            {
                 var client = testScope.CreateClient();
                 var response = await client.PostAsJsonAsync("/api/todoitems", new TodoItem { ColumnIndex = 0, CustomOrder = 1, Priority = 2, Title = "test title2", Description = "test desc2", Date = "2022.05.08" });
 
