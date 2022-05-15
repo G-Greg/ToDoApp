@@ -7,7 +7,7 @@
 
 
 ## Teendőket kezelő webalkalmazás
-A projekt célja, hogy egy működő Kanban Board-ot valósítson meg. Frontend és backendből tevődik össze.
+A projekt célja, hogy egy működő Kanban Board-ot valósítson meg. Frontendből és backendből tevődik össze.
 
 A böngészőben jelenik meg a React alapon elkészült frontend. Felületén teendők kártyákat lehet hozzáadni, módosítani, mozgatni az oszlopok között, illetve törölni azokat.
 
@@ -32,7 +32,7 @@ A frontend-en történő módosítás össze van kötve megfelelő API végponto
 A teendők a prioritás által kerülnek sorrendbe. Amennyiben azonos a sorrend két prioritás között ott a felhasználó is tud sorrendet cserélni a teendő megragadásával és fel-/lemozgatásával.
 Továbbá az oszlopokat is változtatni a teendők oldal írányú mozgatásával.
 
-- <ins>**Szerkesztés**</ins> egyszerűsége. Lehetőség van egy teendő adatainak megváltoztatására egyszerű rákattintással, ami egy felugró ablak segítségével könnyedén szerkeszthetővé válik. A létező adatokat betölti a szerver az adatbázisból a beviteli mezőkbe.
+- <ins>**Szerkesztés**</ins>, lehetőség van egy teendő adatainak megváltoztatására egyszerű rákattintással, ami egy felugró ablak segítségével könnyedén szerkeszthetővé válik. A létező adatokat betölti a szerver az adatbázisból a beviteli mezőkbe.
 
 - <ins>**Beviteli mezők**</ins> amelyekből négy darab van és mindegyik különböző.
   - Címhez egy sima text típusú mező tartozik
@@ -54,10 +54,10 @@ Továbbá az oszlopokat is változtatni a teendők oldal írányú mozgatásáva
 
 ### Backend
 ASP.NET Core keretrendszer SQL adatbázissal
-- <ins>**TodoItemsController**</ins> fogadja az API hívásokat, majd végrehajtódik ennek megfelelő a függvény
-- <ins>**TodoContext**</ins> 
-- <ins>**TodoItem**</ins> az adatosztályt reprezentálja
-- <ins>**Program**</ins> inicializálja valamint beállítja az adatbázist
+- <ins>**TodoItemsController**</ins> fogadja az API hívásokat, majd végrehajtódik ennek megfelelő a függvény.
+- <ins>**TodoContext**</ins> adatbázis-kontextus.
+- <ins>**TodoItem**</ins> egy teendő adatosztályát reprezentálja.
+- <ins>**Program**</ins> inicializálja valamint beállítja az adatbázist.
 - <ins>**SQL**</ins> tárol egy TodoContext adatbázist egy Todo táblával benne a megfelelő TodoItem-ekkel.
 
 ### APIs
@@ -74,7 +74,12 @@ ASP.NET Core keretrendszer SQL adatbázissal
 
 **Frontend**
 
-A projekt könyvtárában egy terminál ablakban az alábbi parancs kiadásával indítható program
+[Node.js](https://nodejs.org/) telepítés után a projekt könyvtárában egy terminál ablakban az alábbi parancsok kiadásával indítható program.
+Első futtatáskor a node modulok telepítése szükséges.
+```
+npm install
+```
+Projekt indítása.
 ```
 npm start
 ```
@@ -82,5 +87,8 @@ Az alkalmazás a [https://localhost:3000](https://localhost:3000) porton fut.
 
 **Backend**
 
-`react-backend.exe`-vel futtatható az adatbázis 
-> (ToDoReactWithBackend\react-backend\bin\Debug\net6.0\react-backend.exe)
+[.NET Core Runtime](https://dotnet.microsoft.com/download) telepítés után a `ToDoReactWithBackend\react-backend` mappában egy terminál ablakban az alábbi parancs kiadásával indítható el az adatbázis.
+```
+dotnet watch run
+```
+
