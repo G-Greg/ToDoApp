@@ -1,6 +1,6 @@
 import React from 'react';
 import {Button, Modal, Form} from 'react-bootstrap';
-import {useState, useEffect} from "react";
+import {useState} from "react";
 
 
 export function NoteModal({handleNote, handleClose, columnIndex, loadData, handleUpdate}) {
@@ -53,15 +53,6 @@ export function NoteModal({handleNote, handleClose, columnIndex, loadData, handl
     }
   }
 
-  useEffect(() => {
-      if (loadData) {
-        setPriority(loadData.priority)
-        setTitle(loadData.title)
-        setDesc(loadData.description)
-        setDate(loadData.date)
-      }
-  });
-
   return (
     <>
       <Modal show={true} onHide={Close}>
@@ -77,7 +68,7 @@ export function NoteModal({handleNote, handleClose, columnIndex, loadData, handl
 
             <Form.Group className="mb-3" controlId="prio">
               <Form.Label>Priority</Form.Label>
-                <Form.Select onChange={e => setPriority(e.target.selectedIndex)} defaultValue={priority}>
+                <Form.Select onChange={e => setPriority(e.target.selectedIndex)} defaultValue={loadData ? loadData.priority : 0}>
                 <option value="0">Critical</option>
                 <option value="1">High</option>
                 <option value="2">Medium</option>

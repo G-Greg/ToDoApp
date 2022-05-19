@@ -66,16 +66,17 @@ export class Board extends React.Component{
 
     handleUpdateNote = (id, updateNote) => {
         const index = this.state.allNotes[updateNote.columnindex].notes.findIndex(n => n.id === id);
-        this.setState({
-            ...this.state.allNotes[updateNote.columnindex].notes[index] = {
-                id: id,
-                priority: updateNote.priority,
-                customorder: updateNote.customorder,
-                title: updateNote.title,
-                description: updateNote.description,
-                date: updateNote.date
-            }
-        });
+        let copy = this.state.allNotes[updateNote.columnindex];
+        copy.notes[index] = {
+            id: id,
+            priority: updateNote.priority,
+            customorder: updateNote.customorder,
+            title: updateNote.title,
+            description: updateNote.description,
+            date: updateNote.date
+        }
+
+        this.setState({...this.state.allNotes[updateNote.columnindex], notes:copy});
 
         axios.put(`api/todoitems/${id}`, updateNote).catch(error => console.error('Unable to update item', error));
         this.forceUpdate()
@@ -128,14 +129,14 @@ export class Board extends React.Component{
             const [reorderedItem] = items.splice(move.source.index, 1);
             items.splice(move.destination.index, 0, reorderedItem);
 
-            this.setState({
-                ...this.state.allNotes[move.source.droppableId].notes = items
-            })
+            let copy = this.state
+            copy.allNotes[move.source.droppableId].notes = items
+            this.setState({copy})
 
             for (let i = 0; i < this.state.allNotes[move.source.droppableId].notes.length; i++) {
-                this.setState({
-                    ...this.state.allNotes[move.source.droppableId].notes[i].customorder = i
-                })               
+                let customCopy = this.state;
+                customCopy.allNotes[move.source.droppableId].notes[i].customorder = i;
+                this.setState({customCopy})               
             }
         
             axios.put(`api/todoitems/column/${parseInt(move.source.droppableId)}`, this.state.allNotes[move.source.droppableId].notes)

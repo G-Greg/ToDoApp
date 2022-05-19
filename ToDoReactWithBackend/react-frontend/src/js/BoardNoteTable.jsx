@@ -53,11 +53,11 @@ export class BoardNoteTable extends React.Component{
                 this.setState({
                     data: res.data
                 })
+                this.setState({
+                    noteModalDisplay: true
+                })
             }
         });
-        this.setState({
-            noteModalDisplay: true
-        })
     }
 
 
