@@ -1,13 +1,13 @@
-import React from 'react';
-import Note from './Note';
-import { NameModal} from './NameModal'
-import { NoteModal} from './NoteModal'
-import { Row, Col} from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPen, faPlus } from '@fortawesome/free-solid-svg-icons';
-import axios from 'axios';
-import { Draggable } from 'react-beautiful-dnd';
-//import { propTypes } from 'react-bootstrap/esm/Image';
+import React from "react";
+import Note from "./Note";
+import { NameModal} from "./NameModal";
+import { NoteModal} from "./NoteModal";
+import { Row, Col} from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPen, faPlus } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
+import { Draggable } from "react-beautiful-dnd";
+import { PropTypes } from "prop-types";
 
 export class BoardNoteTable extends React.Component{
     constructor(props) {
@@ -18,47 +18,47 @@ export class BoardNoteTable extends React.Component{
             nameModalDisplay: false,
             noteModalDisplay: false,
             data: null
-        }
+        };
     }
   
     nameModal = (bool) => {
         this.setState({
             nameModalDisplay: bool
-        })
-    }
+        });
+    };
 
     noteModal = (bool) => {
         this.setState({
             noteModalDisplay: bool
-        })
-    }
+        });
+    };
 
     handleModalClose = (modal, bool) => {
         if(modal === "Name"){
             this.setState({
                 nameModalDisplay: bool
-            })
+            });
         }
         else if(modal === "Note"){
             this.setState({
                 noteModalDisplay: bool,
                 data: null
-            })
+            });
         }
-    }
+    };
 
     handleOnClick = (id) => {
         axios.get(`api/todoitems/${id}`).then(res => {
             if (res.status === 200) {
                 this.setState({
                     data: res.data
-                })
+                });
                 this.setState({
                     noteModalDisplay: true
-                })
+                });
             }
         });
-    }
+    };
 
 
     render(){
@@ -94,7 +94,7 @@ export class BoardNoteTable extends React.Component{
                     .map((note, noteIndex) => {
                         return (
                             <Draggable draggableId={note.id.toString()} key={note.id} index={noteIndex}>
-                                {(provided, snapshot) => (
+                                {(provided) => (
                                     <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                                         <Note 
                                             key = {noteIndex}
@@ -110,18 +110,20 @@ export class BoardNoteTable extends React.Component{
                                     </div>
                                 )}
                             </Draggable>
-                        )
+                        );
                     })
                 }
             </div>
         </div>
-    )}
+    );}
 }
 
-/*
-type check
-
 BoardNoteTable.propTypes = {
-    name: propTypes.string
+    name: PropTypes.string,
+    nemkey: PropTypes.number,
+    notes: PropTypes.array,
+    handleTitle: PropTypes.func,
+    handleNote: PropTypes.func,
+    handleUpdate: PropTypes.func,
+    handleDelete: PropTypes.func
 };
-*/

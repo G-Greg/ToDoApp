@@ -1,20 +1,21 @@
-import React from 'react';
-import {Button, Modal, Form} from 'react-bootstrap';
+import React from "react";
+import {Button, Modal, Form} from "react-bootstrap";
 import {useState} from "react";
+import { PropTypes } from "prop-types";
 
 
 export function NameModal({handleTitle, handleClose, titleId}) {
 
   const Close = () => {
-    handleClose("Name", false)
-  }
+    handleClose("Name", false);
+  };
 
   const [title, setTitle] = useState("");
 
   const collectData = () => {
-    Close()
-    handleTitle(title, titleId)
-  }
+    Close();
+    handleTitle(title, titleId);
+  };
 
   return (
     <>
@@ -42,5 +43,10 @@ export function NameModal({handleTitle, handleClose, titleId}) {
   );
 }
 
+NameModal.propTypes = {
+  titleId: PropTypes.number,
+  handleTitle: PropTypes.func,
+  handleClose: PropTypes.func
+};
 
   

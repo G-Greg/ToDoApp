@@ -13,25 +13,22 @@ builder.Services.AddCors(options =>
         });
 });
 
-// Add services to the container.
-
 builder.Services.AddControllers();
 
-/*
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-*/
+
 builder.Services.AddDbContext<TodoContext>(opt =>
     opt.UseSqlServer(builder.Configuration.GetConnectionString("TodoContext")));
 
+builder.Services.AddScoped<ITodoContext, TodoContext>();
+
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
-    //app.UseSwagger();
-    //app.UseSwaggerUI();
+
 }
 
 using (var scope = app.Services.CreateScope()) 

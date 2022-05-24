@@ -1,6 +1,7 @@
-import React from 'react';
-import {Button, Modal, Form} from 'react-bootstrap';
+import React from "react";
+import {Button, Modal, Form} from "react-bootstrap";
 import {useState} from "react";
+import { PropTypes } from "prop-types";
 
 
 export function NoteModal({handleNote, handleClose, columnIndex, loadData, handleUpdate}) {
@@ -14,20 +15,20 @@ export function NoteModal({handleNote, handleClose, columnIndex, loadData, handl
       event.stopPropagation();
     }    
     setValidated(true);
-    event.currentTarget.checkValidity() ? collectData(event) : console.log("Not submited")
+    event.currentTarget.checkValidity() ? collectData(event) : console.log("Not submited");
   };
   
   const Close = () => {
-    handleClose("Note", false)
-  }
+    handleClose("Note", false);
+  };
 
   const [priority, setPriority] = useState(0);
   const [title, setTitle] = useState("");
-  const [description, setDesc] = useState("")
-  const [date, setDate] = useState()
+  const [description, setDesc] = useState("");
+  const [date, setDate] = useState();
 
   const collectData = (event) => {
-      Close()
+      Close();
 
       if (loadData === null) {
         const newNote = {
@@ -35,9 +36,9 @@ export function NoteModal({handleNote, handleClose, columnIndex, loadData, handl
             priority: priority,
             title: title,
             description: description,
-            date: date.replaceAll('-', '.')
-        }
-        handleNote(newNote)
+            date: date.replaceAll("-", ".")
+        };
+        handleNote(newNote);
       }
       else {
         const updateNote = {
@@ -47,11 +48,11 @@ export function NoteModal({handleNote, handleClose, columnIndex, loadData, handl
           priority: parseInt(event.target.elements[1].value),
           title: event.target.elements[0].value,
           description: event.target.elements[2].value,
-          date: event.target.elements[3].value.replaceAll('-', '.')
-        }
-      handleUpdate(loadData.id, updateNote)
+          date: event.target.elements[3].value.replaceAll("-", ".")
+        };
+      handleUpdate(loadData.id, updateNote);
     }
-  }
+  };
 
   return (
     <>
@@ -84,7 +85,7 @@ export function NoteModal({handleNote, handleClose, columnIndex, loadData, handl
 
             <Form.Label>Date</Form.Label>
             <Form.Group className="mb-3" controlId="date">
-              <Form.Control type="date" onChange={e => setDate(e.target.value)} defaultValue={loadData ? loadData.date.replaceAll('.', '-') : ""} required/>
+              <Form.Control type="date" onChange={e => setDate(e.target.value)} defaultValue={loadData ? loadData.date.replaceAll(".", "-") : ""} required/>
             </Form.Group>
 
             <Modal.Footer>
@@ -98,5 +99,11 @@ export function NoteModal({handleNote, handleClose, columnIndex, loadData, handl
   );
 }
 
-
-  
+NoteModal.propTypes = {
+  id: PropTypes.number,
+  columnIndex: PropTypes.number,
+  loadData: PropTypes.object,
+  handleNote: PropTypes.func,
+  handleUpdate: PropTypes.func,
+  handleClose: PropTypes.func
+};

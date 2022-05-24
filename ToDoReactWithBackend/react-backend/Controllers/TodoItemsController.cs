@@ -14,9 +14,9 @@ namespace react_backend.Controllers
     [ApiController]
     public class TodoItemsController : ControllerBase
     {
-        private readonly TodoContext _context;
+        private readonly ITodoContext _context;
 
-        public TodoItemsController(TodoContext context)
+        public TodoItemsController(ITodoContext context)
         {
             _context = context;
         }
@@ -134,12 +134,12 @@ namespace react_backend.Controllers
             return NoContent();
         }
 
-        private bool TodoItemExists(long id)
+        public bool TodoItemExists(long id)
         {
             return _context.TodoItems.Any(e => e.Id == id);
         }
 
-        private bool TodoColumnExists(long id)
+        public bool TodoColumnExists(long id)
         {
             return _context.TodoItems.Any(e => e.ColumnIndex == id);
         }

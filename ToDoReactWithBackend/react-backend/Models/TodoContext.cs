@@ -3,8 +3,9 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace react_backend.Models
 {
-    public class TodoContext : DbContext
+    public class TodoContext : DbContext, ITodoContext
     {
+
         public TodoContext(DbContextOptions<TodoContext> options)
             : base(options)
         {
